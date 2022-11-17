@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.controllers;
 
+
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.entities.User;
@@ -39,7 +40,7 @@ public class UserController {
         user.setLastName(userSignUpDto.getLastName());
         user.setDisplayName(userSignUpDto.getDisplayName());
         user.setEmail(userSignUpDto.getEmail());
-        user.setPassword() //Bcrypt encode password before mapping to entity
+        user.setPassword(); //Bcrypt encode password before mapping to entity
 
         userRepository.save(user);
 
@@ -47,4 +48,5 @@ public class UserController {
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
     }
+
 }
