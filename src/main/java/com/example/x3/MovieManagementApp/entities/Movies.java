@@ -2,9 +2,13 @@ package com.example.x3.MovieManagementApp.entities;
 
 import lombok.*;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+
+
 
 @Entity
 @Table(name = "movies")
@@ -14,6 +18,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Movies {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
