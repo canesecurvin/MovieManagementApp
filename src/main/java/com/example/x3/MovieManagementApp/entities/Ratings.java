@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Ratings")
+@Table(name = "ratings")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
