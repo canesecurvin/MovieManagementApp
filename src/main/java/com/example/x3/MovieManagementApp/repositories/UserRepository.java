@@ -4,12 +4,14 @@ import com.example.x3.MovieManagementApp.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    Optional<User> findByDisplayName(String username);
     Optional<User> findByEmail(String email);
-    boolean existsByUsername(String username);
+    boolean existsByDisplayName(String username);
     boolean existsByEmail(String email);
 
 }
