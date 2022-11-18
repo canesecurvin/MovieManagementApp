@@ -13,11 +13,13 @@ public interface GenreService {
 
     Optional<Genres> findByGenre(String genre);
 
+    Genres findById(long id);
+
     String save(GenreAddDto genreAddDto);
 
     String updateById(GenreDto genreDto);
 
     void deleteById(long id);
-
+    // TODO update delete method to return String message
 
 }

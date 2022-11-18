@@ -15,7 +15,7 @@ public interface MovieService {
 
     List<Movies> findAllByReleaseYear(int year, Sort sort);
 
-    List<Movies> findAllByGenres(Genres genre);
+    List<Movies> findAllByGenres(String genre);
 
     Movies findById(long id);
 
@@ -26,5 +26,5 @@ public interface MovieService {
     String updateById(MovieDto movieDto);
 
     void deleteById(long id);
-
+    //TODO update delete method to return String message
 }

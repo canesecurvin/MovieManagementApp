@@ -1,6 +1,7 @@
 package com.example.x3.MovieManagementApp.controllers;
 
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class MovieController {
         return movieService.findAllByReleaseYear(year, Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
+    @GetMapping("/genre/{genre}")
+    public List<Movies> getMoviesByGenre(@PathVariable String genre) {
+        return movieService.findAllByGenres(genre);
+    }
+
     @GetMapping("/")
     public List<Movies> getAllMovies() {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
@@ -45,4 +51,10 @@ public class MovieController {
         return movieService.save(newMovie);
     }
 
+    @PutMapping("/")
+    public String updateById(@RequestBody MovieDto movieDto) {
+        return movieService.updateById(movieDto);
+    }
+
+    //TODO add delete mapping after updating services
 }

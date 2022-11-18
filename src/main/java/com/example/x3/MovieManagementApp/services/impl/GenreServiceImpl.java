@@ -34,6 +34,13 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    public Genres findById(long id) {
+        Optional<Genres> tempGenre = genreRepository.findById(id);
+
+        return tempGenre.orElse(null);
+    }
+
+    @Override
     public String save(GenreAddDto genreAddDto) {
         if (genreRepository.findByGenre(genreAddDto.getGenre()).isPresent()) {
             return "Genre already exists.";
