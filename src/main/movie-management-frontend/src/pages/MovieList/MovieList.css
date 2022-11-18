@@ -1,0 +1,12 @@
+.container h1{
+    margin-bottom: 3%;
+}
+.movie-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.movie-card {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}

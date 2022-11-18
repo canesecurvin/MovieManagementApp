@@ -1,17 +1,17 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
-function MovieCard(props){
+function MovieCardJsx(props){
     return (
         <div>
             <Card>
-            <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
                 <Card.Title>{props.movieName}</Card.Title>
                 <Card.Text>
-                    <p>Year:{props.year}</p>
-                    <p>Director:{props.director}</p>
-                    <p>Cast:{props.cast}</p>
+                    <b>Year:</b> {props.year}<br/>
+                    <b>Director:</b> {props.director}<br/>
+                    <b>Cast:</b> {props.cast}<br/>
                 </Card.Text>
                 <Button variant="primary">Movie Details</Button>
             </Card.Body>
@@ -20,4 +20,4 @@ function MovieCard(props){
     );
 }
 
-export default MovieCard;
+export default MovieCardJsx;

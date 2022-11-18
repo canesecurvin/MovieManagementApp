@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import MovieList from './pages/MovieList/MovieList';
+import MovieList from './pages/MovieList/MovieList.js';
 function App() {
   return (
     <div className="App">
