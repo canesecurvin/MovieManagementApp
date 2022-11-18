@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    text-align: left;
+}
+
+.activity {
+    margin-bottom: 3px;
+}
+
+.form-field {
+    text-align: left;
+    width: 25%;
+}
+.submit-button {
+    width: 20%;
+}
+
+.update-password h3 {
+    margin-top: 5%;
+}
