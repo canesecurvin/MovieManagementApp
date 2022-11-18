@@ -16,7 +16,7 @@ public class Ratings implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "review")
