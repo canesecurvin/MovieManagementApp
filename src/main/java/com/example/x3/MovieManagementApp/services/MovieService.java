@@ -11,7 +11,7 @@ public interface MovieService {
 
     List<Movies> findAllByReleaseYear(int year, Sort sort);
 
-    Movies findMoviesById(long id);
+    Movies findById(long id);
 
     List<Movies> findAll(Sort sort);
 

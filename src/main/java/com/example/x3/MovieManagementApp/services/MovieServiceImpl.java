@@ -29,7 +29,7 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public Movies findMoviesById(long id) {
+    public Movies findById(long id) {
         Optional<Movies> tempMovie = movieRepositories.findById(id);
 
         return tempMovie.orElse(null);
