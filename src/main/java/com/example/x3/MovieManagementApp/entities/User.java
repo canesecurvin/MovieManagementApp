@@ -18,6 +18,9 @@ import java.util.List;
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(unique = true, nullable = false, name = "email", length = 80)
     private String email;
 
@@ -42,7 +45,7 @@ public class User implements Serializable {
 //    @ManyToMany
 //    @JoinTable(
 //            name = "user_movie_favorites",
-//            joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "email"),
+//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 //            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
 //    )
 //    private List<Movies> favoriteMovies;
