@@ -1,10 +1,12 @@
 package com.example.x3.MovieManagementApp.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -12,7 +14,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Builder
+public class User implements Serializable {
 
     @Id
     @Column(unique = true, nullable = false, name = "email", length = 80)
@@ -36,11 +39,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Ratings> ratings;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_movie_favorites",
-            joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "email"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
-    )
-    private List<Movies> favoriteMovies;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_movie_favorites",
+//            joinColumns = @JoinColumn(name = "user_email", referencedColumnName = "email"),
+//            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
+//    )
+//    private List<Movies> favoriteMovies;
 }
