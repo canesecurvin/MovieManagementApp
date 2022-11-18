@@ -21,7 +21,7 @@ public class MovieComments {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_id")
     private User user;
 
 
