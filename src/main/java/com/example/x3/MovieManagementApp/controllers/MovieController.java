@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.controllers;
 
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,20 +40,9 @@ public class MovieController {
     }
 
     @PostMapping("/id/{movieId}")
-    public Optional<List<Movies>> addMovie(@RequestBody Movies newMovie) {
-        ArrayList<Movies> tempMovieList = (ArrayList<Movies>) movieService.findAllByMovieName(newMovie.getMovieName());
-        ArrayList<Movies> returnList = new ArrayList<>();
-        if (tempMovieList.contains(newMovie)) {
-            for (Movies movie : tempMovieList) {
-                if (movie.getMovieName().equalsIgnoreCase(newMovie.getMovieName())
-                        && movie.getReleaseYear() == newMovie.getReleaseYear()) {
-                    returnList.add(movie);
-                }
-            }
-            return Optional.of(returnList);
-        }
-        movieService.save(newMovie);
-        return Optional.empty();
+    public Optional<List<Movies>> addMovie(@RequestBody MovieAddDto newMovie) {
+
+        return movieService.save(newMovie);
     }
 
 }

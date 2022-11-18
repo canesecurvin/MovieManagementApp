@@ -48,4 +48,12 @@ public class Movies {
     @ToString.Exclude
     private Set<Genres> genres = new HashSet<>();
 
+    public void addGenre(Genres genre) {
+        if (genres == null) {
+            genres = new HashSet<>();
+        }
+
+        genres.add(genre);
+    }
+
 }
