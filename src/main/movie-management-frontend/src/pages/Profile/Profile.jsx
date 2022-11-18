@@ -1,8 +1,8 @@
 import React from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab'
-import RecentActivityJsx from './tabs/RecentActivity';
-import SettingsJsx from './tabs/Settings';
+import RecentActivityJsx from './Tabs/RecentActivity';
+import SettingsJsx from './Tabs/Settings';
 
 function ProfileJsx() {
   return (
