@@ -43,10 +43,4 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
     )
     private List<Movies> favoriteMovies;
-
-    public User(String email, String password, String displayName) { // custom constructor
-        this.email = email;
-        this.password = password;
-        this.displayName = displayName;
-    }
 }
