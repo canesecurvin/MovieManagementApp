@@ -56,5 +56,10 @@ public class MovieController {
         return movieService.updateById(movieDto);
     }
 
-    //TODO add delete mapping after updating services
+    @DeleteMapping("/{movieId}")
+    public String deleteById(@RequestBody long movieId) {
+
+        return movieService.deleteById(movieId);
+
+    }
 }

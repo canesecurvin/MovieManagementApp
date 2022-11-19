@@ -70,7 +70,15 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public String deleteById(long id) {
+        Optional<Genres> tempGenre = genreRepository.findById(id);
+
+        if (tempGenre.isPresent()) {
+            genreRepository.deleteById(id);
+            return "Deleted genre id: " + id;
+        }
+
+        return "Could not find genre with id: " + id;
 
     }
 }

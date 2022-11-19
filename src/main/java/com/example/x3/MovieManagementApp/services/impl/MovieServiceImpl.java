@@ -89,8 +89,15 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void deleteById(long id) {
-        movieRepository.deleteById(id);
+    public String deleteById(long id) {
+        Optional<Movies> tempMovie = movieRepository.findById(id);
+
+        if (tempMovie.isPresent()) {
+            movieRepository.deleteById(id);
+            return "Deleted movie id: " + id;
+        }
+        return "Could not find movie with id: " + id;
+
     }
 
     @Override

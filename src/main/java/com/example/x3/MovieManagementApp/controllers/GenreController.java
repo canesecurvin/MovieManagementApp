@@ -42,6 +42,10 @@ public class GenreController {
         return genreService.updateById(genreDto);
     }
 
-    //TODO add delete mapping after updating services
+    @DeleteMapping("/{genreId}")
+    public String deleteById(@RequestBody long genreId) {
 
+        return genreService.deleteById(genreId);
+
+    }
 }

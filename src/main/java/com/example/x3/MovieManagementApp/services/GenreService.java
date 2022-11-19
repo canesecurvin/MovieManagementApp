@@ -19,7 +19,6 @@ public interface GenreService {
 
     String updateById(GenreDto genreDto);
 
-    void deleteById(long id);
-    // TODO update delete method to return String message
+    String deleteById(long id);
 
 }
