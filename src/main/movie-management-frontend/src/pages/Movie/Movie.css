@@ -1,0 +1,19 @@
+.movie-container {
+    width: 100%;
+    height: 40%;
+    margin-left: 2.5%;
+    text-align: left;
+}
+.movie-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 2.5%;
+    padding-left: 0;
+}
+
+.movie-pic {
+    width: 10%;
+    border: 1px solid black;
+    margin-right: 3%;
+}
