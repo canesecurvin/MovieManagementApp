@@ -25,20 +25,20 @@ public class Movies {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "movie_name", length = 100)
+    @Column(name = "movie_name", nullable = false, length = 100)
     private String movieName;
 
-    @Column(name = "release_year")
+    @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
-    @Column(name = "movie_length")
+    @Column(name = "movie_length", nullable = false)
     private int movieLength;
 
     @Column(name = "rating")
     private double rating;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.MERGE})
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "movie_genres",
             joinColumns = {
                 @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false, updatable = false)},
