@@ -1,5 +1,7 @@
 package com.example.x3.MovieManagementApp.controllers;
 
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,26 +35,31 @@ public class MovieController {
         return movieService.findAllByReleaseYear(year, Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
+    @GetMapping("/genre/{genre}")
+    public List<Movies> getMoviesByGenre(@PathVariable String genre) {
+        return movieService.findAllByGenres(genre);
+    }
+
     @GetMapping("/")
     public List<Movies> getAllMovies() {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
     @PostMapping("/id/{movieId}")
-    public Optional<List<Movies>> addMovie(@RequestBody Movies newMovie) {
-        ArrayList<Movies> tempMovieList = (ArrayList<Movies>) movieService.findAllByMovieName(newMovie.getMovieName());
-        ArrayList<Movies> returnList = new ArrayList<>();
-        if (tempMovieList.contains(newMovie)) {
-            for (Movies movie : tempMovieList) {
-                if (movie.getMovieName().equalsIgnoreCase(newMovie.getMovieName())
-                        && movie.getReleaseYear() == newMovie.getReleaseYear()) {
-                    returnList.add(movie);
-                }
-            }
-            return Optional.of(returnList);
-        }
-        movieService.save(newMovie);
-        return Optional.empty();
+    public Optional<List<Movies>> addMovie(@RequestBody MovieAddDto newMovie) {
+
+        return movieService.save(newMovie);
     }
 
+    @PutMapping("/")
+    public String updateById(@RequestBody MovieDto movieDto) {
+        return movieService.updateById(movieDto);
+    }
+
+    @DeleteMapping("/{movieId}")
+    public String deleteById(@RequestBody long movieId) {
+
+        return movieService.deleteById(movieId);
+
+    }
 }
