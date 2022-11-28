@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movie_comments")
@@ -19,6 +20,13 @@ public class MovieComments {
 
     @Column (name = "comment")
     private String comment;
+
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movies movie;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

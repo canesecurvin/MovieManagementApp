@@ -19,9 +19,16 @@ public class Ratings implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movies movie;
+
     @Column(name = "review")
     private String review;
 
     @Column (name = "weight")
     private int weight;
+
+    @Column (name = "rating")
+    private int rating;
 }
