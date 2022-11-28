@@ -12,5 +12,7 @@ public interface MovieCommentRepository extends JpaRepository<MovieComments, Lon
 
     List<MovieComments> findAllByMovieId(Long id);
 
+    List<MovieComments> findAllByUserIdAndMovieId(Long userId, Long movieId);
+
     Optional<MovieComments> findByComment(String comment);
 }

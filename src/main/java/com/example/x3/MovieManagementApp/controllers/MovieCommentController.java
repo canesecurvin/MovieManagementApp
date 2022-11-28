@@ -27,6 +27,11 @@ public class MovieCommentController {
         return movieCommentService.findAllCommentsByMovieId(movieId);
     }
 
+    @GetMapping("/{movieId}/{userId}")
+    public List<MovieComments> findAllCommentsByUserIdAndMovieId(@PathVariable Long userId, @PathVariable Long movieId) {
+        return movieCommentService.findAllCommentsByUserIdAndMovieId(userId, movieId);
+    }
+
     @GetMapping("/")
     public List<MovieComments> findAll() {
         return movieCommentService.findAll();

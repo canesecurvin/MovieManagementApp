@@ -14,6 +14,8 @@ public interface MovieCommentService {
 
     List<MovieComments> findAllCommentsByMovieId(Long id);
 
+    List<MovieComments> findAllCommentsByUserIdAndMovieId(Long userId, Long movieId);
+
     String saveComment(MovieCommentAddDto movieCommentAddDto);
 
     String update(MovieCommentDto movieCommentDto);

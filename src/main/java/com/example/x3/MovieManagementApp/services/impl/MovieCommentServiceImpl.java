@@ -4,8 +4,10 @@ import com.example.x3.MovieManagementApp.dtos.MovieCommentsDto.MovieCommentAddDt
 import com.example.x3.MovieManagementApp.dtos.MovieCommentsDto.MovieCommentDto;
 import com.example.x3.MovieManagementApp.entities.MovieComments;
 import com.example.x3.MovieManagementApp.entities.Movies;
+import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.MovieCommentRepository;
 import com.example.x3.MovieManagementApp.repositories.MovieRepository;
+import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.MovieCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<MovieComments> findAll() {
@@ -48,13 +53,26 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     }
 
     @Override
-    public String saveComment(MovieCommentAddDto movieCommentAddDto) {
-        if (movieCommentRepository.findByComment(movieCommentAddDto.getComment()).isPresent()) {
-            return "This comment already exists. Maybe you would like to change it?";
-        }
+    public List<MovieComments> findAllCommentsByUserIdAndMovieId(Long userId, Long movieId) {
+        Optional<Movies> tempMovie = movieRepository.findById(movieId);
+        Optional<User> tempUser = userRepository.findById(movieId);
 
+        if (tempMovie.isPresent() && tempUser.isPresent()) {
+            return movieCommentRepository.findAllByUserIdAndMovieId(userId, movieId);
+        }
+        else {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public String saveComment(MovieCommentAddDto movieCommentAddDto) {
         MovieComments newMovieComment = new MovieComments();
+
         newMovieComment.setComment(movieCommentAddDto.getComment());
+        newMovieComment.setMovie(movieCommentAddDto.getMovie());
+        newMovieComment.setUser(movieCommentAddDto.getUser());
+        newMovieComment.setTimestamp(movieCommentAddDto.getTimestamp());
         movieCommentRepository.save(newMovieComment);
 
         return "Comment is saved";
