@@ -49,11 +49,8 @@ public class MovieCommentServiceImpl implements MovieCommentService {
 
     @Override
     public String saveComment(MovieCommentAddDto movieCommentAddDto) {
-        List<MovieComments> commentsByUser = movieCommentAddDto.getUser().getComments();
-        for (MovieComments x : commentsByUser) {
-            if ((x.getMovie().getId()) == movieCommentAddDto.getMovie().getId()) {
-                return "Error. This user has already made comment for this movie. Choose another movie";
-            }
+        if (movieCommentRepository.findByComment(movieCommentAddDto.getComment()).isPresent()) {
+            return "This comment already exists. Maybe you would like to change it?";
         }
 
         MovieComments newMovieComment = new MovieComments();
