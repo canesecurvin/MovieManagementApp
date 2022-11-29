@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    text-align: left;
+}
+.form-field {
+    text-align: left;
+    width: 25%;
+}
+.submit-button {
+    width: 20%;
+}
