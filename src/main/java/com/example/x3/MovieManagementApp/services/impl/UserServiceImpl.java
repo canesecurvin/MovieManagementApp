@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> createNewUser(UserSignUpDto userSignUpDto) {
         if (userRepository.existsByDisplayName(userSignUpDto.getDisplayName())) {
-            return new ResponseEntity<>("That username is taken. Try another.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("That display name is taken. Try another.", HttpStatus.BAD_REQUEST);
         }
 
         if (userRepository.existsByEmail(userSignUpDto.getEmail())) {
@@ -45,16 +44,15 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> loginUser(UserLoginDto userLoginDto) {
-
-        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 userLoginDto.getDisplayName(), userLoginDto.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new ResponseEntity<>("User successfully logged in", HttpStatus.OK);
     }
