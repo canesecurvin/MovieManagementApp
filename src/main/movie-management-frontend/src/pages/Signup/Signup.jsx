@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
+import {useNavigate} from 'react-router-dom';
 
 export const SignupJsx = () => {
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         email: '',
         firstName: '',
@@ -40,15 +42,24 @@ export const SignupJsx = () => {
         }
     }
 
-    function handleFormSubmit(event){
+    function handleFormSubmit(event) {
         if (event) event.preventDefault();
         if (validateFormValues(values)){
             UserService.createUser(values).then(res => {
-                alert('signed up!');
             }).catch(err => {
-                alert(err.response.data);
+                alert(err);
+            }).finally(()=> {
+                loginAfterRegister();
             })
         }
+    }
+
+    function loginAfterRegister(){
+        UserService.loginUser({email: values.email, password: values.password}).then(res => {
+            navigate('/movies');
+        }).catch(err => {
+            alert('login failed', err);
+        });
     }
 
 
