@@ -5,7 +5,7 @@ const baseUrl = 'http://localhost:8080/v1/users/';
 class UserService{
     createUser(user){
         console.log('create user service', user)
-        axios.post(baseUrl+'register', user);
+        return axios.post(baseUrl+'register', user);
     }
 
     loginUser(user){

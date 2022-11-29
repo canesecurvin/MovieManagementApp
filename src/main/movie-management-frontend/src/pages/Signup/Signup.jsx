@@ -15,7 +15,6 @@ export const SignupJsx = () => {
     const [formErrors, setFormErrors] = useState({});
 
     function handleFieldChange(event) {
-        console.log(event, event.target.id, event.target.value);
         setValues((values)=> ({
             ...values,
             [event.target.id]: event.target.value
@@ -44,7 +43,11 @@ export const SignupJsx = () => {
     function handleFormSubmit(event){
         if (event) event.preventDefault();
         if (validateFormValues(values)){
-            UserService.createUser(values);
+            UserService.createUser(values).then(res => {
+                alert('signed up!');
+            }).catch(err => {
+                alert(err.response.data);
+            })
         }
     }
 
