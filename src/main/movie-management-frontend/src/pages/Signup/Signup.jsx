@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 export const SignupJsx = () => {
     const navigate = useNavigate();
@@ -97,6 +97,7 @@ export const SignupJsx = () => {
                       <p className="text-danger">{formErrors.confirmPassword}</p>
                     )}
             </Form.Group>
+            <p>Already have an account? <Link to="/">Login</Link></p>
             <Button className="submit-button" variant="primary" type="submit">Submit</Button>
         </Form>
     </div>
