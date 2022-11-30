@@ -39,12 +39,12 @@ public class RatingController {
     }
 
     @PostMapping("/")
-    public String addNewRating(RatingAddDto ratingAddDto) {
+    public String addNewRating(@RequestBody RatingAddDto ratingAddDto) {
         return ratingService.save(ratingAddDto);
     }
 
     @PutMapping("/")
-    public String updateRating(RatingDto ratingDto) {
+    public String updateRating(@RequestBody RatingDto ratingDto) {
         return ratingService.update(ratingDto);
     }
 
