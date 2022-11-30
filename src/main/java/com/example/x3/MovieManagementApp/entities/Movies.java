@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -45,6 +46,7 @@ public class Movies {
             inverseJoinColumns = {
                 @JoinColumn(name = "genre_id", referencedColumnName = "id", nullable = false, updatable = false)}
     )
+    @JsonManagedReference
     @ToString.Exclude
     private Set<Genres> genres = new HashSet<>();
 
