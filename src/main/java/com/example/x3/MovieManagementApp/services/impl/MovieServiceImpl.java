@@ -52,15 +52,15 @@ public class MovieServiceImpl implements MovieService {
     public Optional<List<Movies>> save(MovieAddDto movieAddDto) {
         ArrayList<Movies> tempMovieList = (ArrayList<Movies>) movieRepository.findAllByMovieName(movieAddDto.getMovieName());
         ArrayList<Movies> returnList = new ArrayList<>();
-        if (tempMovieList.contains(movieAddDto)) {
+
             for (Movies movie : tempMovieList) {
                 if (movie.getMovieName().equalsIgnoreCase(movieAddDto.getMovieName())
                         && movie.getReleaseYear() == movieAddDto.getReleaseYear()) {
                     returnList.add(movie);
                 }
             }
-            return Optional.of(returnList);
-        }
+            if (!tempMovieList.isEmpty()) return Optional.of(returnList);
+
         Movies newMovie = new Movies();
         newMovie.setMovieName(movieAddDto.getMovieName());
         newMovie.setMovieLength(movieAddDto.getMovieLength());
