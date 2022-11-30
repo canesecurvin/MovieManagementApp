@@ -27,8 +27,8 @@ public class MovieController {
     }
 
     @GetMapping("/name/{movieName}")
-    public List<Movies> getMoviesByName(@PathVariable String name) {
-        return movieService.findAllByMovieName(name);
+    public List<Movies> getMoviesByName(@PathVariable String movieName) {
+        return movieService.findAllByMovieName(movieName);
     }
 
     @GetMapping("/year/{year}")

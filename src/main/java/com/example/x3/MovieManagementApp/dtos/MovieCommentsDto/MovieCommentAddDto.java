@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class MovieCommentAddDto {
 
     private String comment;
-    private LocalDateTime timestamp;
-    private Movies movie;
-    private User user;
+    private String timestamp;
+    private Long movieId;
+    private Long userId;
 }

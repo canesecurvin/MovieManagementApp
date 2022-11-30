@@ -1,14 +1,23 @@
-import React from "react";
+import React, {useEffect, useState}  from "react";
 import CommentCardJsx from "./CommentCard.jsx";
+import MovieCommentsService from "../../../services/MovieCommentsService.js";
 
-const comments = [
-    {time_stamp: 'Jan 17,2021 7:39', user: 'Jane', comment: 'I love this movie!'},
-    {time_stamp: 'Jan 17,2021 7:39', user: 'Jane', comment: 'I love this movie!'}
-]
-function CommentLogJsx(){
+function CommentLogJsx(props){
+    const [values, setValues] = useState({
+        comments: []
+    })
+    useEffect(()=> {
+        MovieCommentsService.getAllMovieComments(props.id).then(res => {
+            setValues(()=> ({
+                comments: res.data
+            }));
+        }).catch(err => {
+            alert(err);
+        })
+    }, [])
     return (
         <div>
-            {comments.map(function(com,i){
+            {values.comments.map(function(com,i){
                 return (
                     <div key={i}>
                         <CommentCardJsx {...com}/>

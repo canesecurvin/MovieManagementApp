@@ -5,8 +5,10 @@ import com.example.x3.MovieManagementApp.dtos.RatingDtos.RatingDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.entities.Ratings;
 import com.example.x3.MovieManagementApp.entities.RatingsPK;
+import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.MovieRepository;
 import com.example.x3.MovieManagementApp.repositories.RatingRepository;
+import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,13 @@ public class RatingServiceImpl implements RatingService {
     @Autowired
     MovieRepository movieRepository;
 
-    public RatingServiceImpl(RatingRepository ratingRepository, MovieRepository movieRepository) {
+    @Autowired
+    UserRepository userRepository;
+
+    public RatingServiceImpl(RatingRepository ratingRepository, MovieRepository movieRepository, UserRepository userRepository) {
         ratingRepository = ratingRepository;
         movieRepository = movieRepository;
+        userRepository = userRepository;
     }
 
     @Override
@@ -53,14 +59,22 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public String save(RatingAddDto ratingAddDto) {
-        Ratings tempRating = new Ratings();
+        long userId = ratingAddDto.getUserId();
+        long movieId = ratingAddDto.getMovieId();
+        Optional<String> userMovieCheck = validateUserAndMovie(userId, movieId);
 
-        tempRating.setRatingsPK(ratingAddDto.getRatingsPK());
+        if (userMovieCheck.isPresent()) {
+            return userMovieCheck.get();
+        }
+
+        Ratings tempRating = new Ratings();
+        RatingsPK tempRatingsPK = new RatingsPK(ratingAddDto.getUserId(), ratingAddDto.getMovieId());
+
+        tempRating.setRatingsPK(tempRatingsPK);
         tempRating.setRating(ratingAddDto.getRating());
         tempRating.setReview(ratingAddDto.getReview());
         ratingRepository.save(tempRating);
 
-        long movieId = tempRating.getRatingsPK().getMovieId();
         updateMovieRating(movieId);
 
         return "Rating has been saved.";
@@ -68,7 +82,8 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public String update(RatingDto ratingDto) {
-        Optional<Ratings> tempRating = ratingRepository.findById(ratingDto.getRatingsPK());
+        RatingsPK tempRatingPK = new RatingsPK(ratingDto.getUserId(), ratingDto.getMovieId());
+        Optional<Ratings> tempRating = ratingRepository.findById(tempRatingPK);
 
         if (tempRating.isPresent()) {
             ratingRepository.saveAndFlush(tempRating.get());
@@ -79,6 +94,25 @@ public class RatingServiceImpl implements RatingService {
             return "Rating has been updated.";
         }
         return "Rating could not be found.";
+    }
+
+    private Optional<String> validateUserAndMovie(long userId, long movieId) {
+        Optional<User> tempUser = userRepository.findById(userId);
+        Optional<Movies> tempMovie = movieRepository.findById(movieId);
+
+        if (tempUser.isEmpty() || tempMovie.isEmpty()) {
+            StringBuilder tempString = new StringBuilder();
+            if (tempUser.isEmpty()) tempString.append("Cannot find userId: ")
+                    .append(userId)
+                    .append("\n");
+
+            if (tempMovie.isEmpty()) tempString.append("Cannot find movieId: ")
+                    .append(movieId);
+
+            return Optional.of(tempString.toString());
+        }
+
+        return Optional.empty();
     }
 
     private void updateMovieRating(long movieId) {

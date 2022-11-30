@@ -4,11 +4,11 @@ const baseUrl = 'http://localhost:8080/v1/movies/';
 
 class MovieService{
     getMovie(movieId){
-        axios.get(baseUrl+`id/${movieId}`);
+        return axios.get(baseUrl+`id/${movieId}`);
     }
 
     getAllMovies(){
-        axios.get(baseUrl);
+        return axios.get(baseUrl);
     }
 }
 

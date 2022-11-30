@@ -1,16 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import MovieCardJsx from "./MovieCard/MovieCard.jsx";
+import MovieService from "../../services/MovieService.js";
 import './MovieList.css';
 
-const movies = [
-    {movieName: 'Titanic', year: '1993', director: 'Paul Rudd', cast: 'Leanardo Dicaprio'},
-    {movieName: 'Titanic', year: '1993', director: 'Paul Rudd', cast: 'Leanardo Dicaprio'}
-]
 
 function MovieListJsx(){
+    const [moviesList, setMoviesList] = useState({
+        movies: []
+    });
+    useEffect(()=>{
+        const getMovies = ()=> {
+            MovieService.getAllMovies().then(res => {
+                setMoviesList((values)=> ({
+                    movies: [...res.data]
+                }));
+            }).catch(err => {
+                alert('couldnt retrieve movies');
+            });
+        }
+        getMovies();
+    }, [])
     return (
         <>
-            {movies.map(function(mov, i){
+            {moviesList.movies.map(function(mov, i){
                 return (
                     <div key={i} className="movie-card">
                         <MovieCardJsx key={i} {...mov}/>

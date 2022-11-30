@@ -1,8 +1,10 @@
 package com.example.x3.MovieManagementApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,5 +25,7 @@ public class Genres {
     private String genre;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ToString.Exclude
     private Set<Movies> movies = new HashSet<>();
 }
