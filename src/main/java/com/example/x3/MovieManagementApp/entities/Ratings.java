@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Ratings implements Serializable {
     private User user;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonBackReference
     @JoinColumn(name = "movie_id", insertable = false, updatable = false)
     private Movies movie;
 

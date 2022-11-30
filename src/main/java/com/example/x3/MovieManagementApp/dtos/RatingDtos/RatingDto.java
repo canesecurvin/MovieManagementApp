@@ -12,7 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RatingDto {
 
-    private RatingsPK ratingsPK;
+    private long userId;
+    private long movieId;
     private int rating;
     private String review;
     private int weight;

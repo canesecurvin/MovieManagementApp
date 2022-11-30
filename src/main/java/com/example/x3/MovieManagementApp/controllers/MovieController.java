@@ -46,7 +46,7 @@ public class MovieController {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
-    @PostMapping("/id/{movieId}")
+    @PostMapping("/")
     public Optional<List<Movies>> addMovie(@RequestBody MovieAddDto newMovie) {
 
         return movieService.save(newMovie);

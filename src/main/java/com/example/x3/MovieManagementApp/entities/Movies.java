@@ -51,6 +51,7 @@ public class Movies {
     private Set<Genres> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
     @ToString.Exclude
     private Set<Ratings> ratings = new HashSet<>();
 
