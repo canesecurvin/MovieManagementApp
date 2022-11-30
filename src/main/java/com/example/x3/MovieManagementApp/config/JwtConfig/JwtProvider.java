@@ -15,10 +15,10 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    //@Value("${sec.jwt-secret}")
-    private String jwtSecret = "JWTSecretKey2117842387193182791hbadjhsjwudgiwe23940309289383023";
-    //@Value("${sec.jwt-expiration-milliseconds}")
-    private int jwtExpirationInMs =604800000;
+    @Value("${sec.jwt-secret}")
+    private String jwtSecret;
+    @Value("${sec.jwt-expiration-milliseconds}")
+    private int jwtExpirationInMs;
 
     private Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
 
