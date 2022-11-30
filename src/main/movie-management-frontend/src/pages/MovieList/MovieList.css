@@ -7,6 +7,7 @@
     flex-wrap: wrap;
 }
 .movie-card {
-    margin-left: 2.5%;
-    margin-right: 2.5%;
+    width: 25%;
+    height: 30%;
+    margin: 2.5%;
 }
