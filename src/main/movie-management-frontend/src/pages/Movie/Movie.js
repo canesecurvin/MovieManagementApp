@@ -1,17 +1,13 @@
 import React from "react";
 import MovieJsx from "./Movie.jsx";
+import {useParams} from "react-router-dom";
+import './Movie.css';
 
-const movieInfo = {
-    movie_name: 'Titanic',
-    release_year: 1996,
-    director: 'Paul Rudd',
-    cast: 'Leonardo Dicaprio',
-    rating: 5
-}
 function Movie(){
+    const id = useParams();
     return (
-        <div>
-            <MovieJsx {...movieInfo}/>
+        <div className="container">
+            <MovieJsx className="movie-container" {...id}/>
         </div>
     );
 }
