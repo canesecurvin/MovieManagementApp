@@ -7,8 +7,7 @@ function CommentCardJsx(props){
             <Card>
                 <Card.Body>
                     <Card.Text>
-                        {props.time_stamp}<br/>
-                        <b>@{props.user}</b><br/>
+                        {props.timestamp}<br/>
                         {props.comment}<br/>
                     </Card.Text>
                 </Card.Body>
