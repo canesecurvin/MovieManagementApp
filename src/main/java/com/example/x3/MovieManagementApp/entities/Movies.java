@@ -48,6 +48,10 @@ public class Movies {
     @ToString.Exclude
     private Set<Genres> genres = new HashSet<>();
 
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ToString.Exclude
+    private Set<Ratings> ratings = new HashSet<>();
+
     public void addGenre(Genres genre) {
         if (genres == null) {
             genres = new HashSet<>();
