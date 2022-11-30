@@ -27,8 +27,8 @@ public class MovieController {
     }
 
     @GetMapping("/name/{movieName}")
-    public List<Movies> getMoviesByName(@PathVariable String name) {
-        return movieService.findAllByMovieName(name);
+    public List<Movies> getMoviesByName(@PathVariable String movieName) {
+        return movieService.findAllByMovieName(movieName);
     }
 
     @GetMapping("/year/{year}")
@@ -46,7 +46,7 @@ public class MovieController {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
-    @PostMapping("/")
+    @PostMapping("/id/{movieId}")
     public Optional<List<Movies>> addMovie(@RequestBody MovieAddDto newMovie) {
 
         return movieService.save(newMovie);

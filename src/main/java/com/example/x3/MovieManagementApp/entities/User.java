@@ -1,13 +1,13 @@
 package com.example.x3.MovieManagementApp.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -36,11 +36,17 @@ public class User implements Serializable {
     @Column (name = "last_name", length = 20)
     private String lastName;
 
-    @OneToMany(mappedBy = "user")
-    private List<MovieComments> comments;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<MovieComments> movieComments = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Ratings> ratings;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<Ratings> ratings = new HashSet<>();
+
+
 
 //    @ManyToMany
 //    @JoinTable(
