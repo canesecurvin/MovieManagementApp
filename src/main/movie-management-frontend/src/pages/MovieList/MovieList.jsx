@@ -11,7 +11,7 @@ function MovieListJsx(){
     useEffect(()=>{
         const getMovies = ()=> {
             MovieService.getAllMovies().then(res => {
-                setMoviesList((values)=> ({
+                setMoviesList(()=> ({
                     movies: [...res.data]
                 }));
             }).catch(err => {
