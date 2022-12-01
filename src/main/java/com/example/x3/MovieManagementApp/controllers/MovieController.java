@@ -41,7 +41,7 @@ public class MovieController {
         return movieService.findAllByGenres(genre);
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", ""})
     public List<Movies> getAllMovies() {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
     }

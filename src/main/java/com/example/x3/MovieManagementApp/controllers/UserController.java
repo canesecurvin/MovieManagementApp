@@ -1,6 +1,7 @@
 package com.example.x3.MovieManagementApp.controllers;
 
 
+import com.example.x3.MovieManagementApp.dtos.SecurityDtos.JwtAuthDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody UserLoginDto userLoginDto){
+    public ResponseEntity<JwtAuthDto> authenticateUser(@RequestBody UserLoginDto userLoginDto){
         return userService.loginUser(userLoginDto);
     }
 
