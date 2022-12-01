@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import CommentLogJsx from "./CommentLog/CommentLog.jsx";
 import MovieService from "../../services/MovieService.js";
-import AddCommentJsx from "./CommentLog/AddComment.jsx";
 import './Movie.css'
 
 function MovieJsx(props){
@@ -28,7 +27,6 @@ function MovieJsx(props){
                     <p><b>Duration: </b>{values.movie.movieLength} Minutes</p>
                 </div>
             </div>
-            <AddCommentJsx movieId={props.id}/>
             <h3>Comments</h3>
             <CommentLogJsx id={props.id}/>
         </>

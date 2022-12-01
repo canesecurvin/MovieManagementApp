@@ -15,7 +15,8 @@ class MovieCommentsService{
         const movieData = {
             comment: comment,
             movieId: movieId,
-            userId: userId
+            userId: userId,
+            timestamp: timestamp
         }
         return axios.post(baseUrl, movieData, {
             headers: {
