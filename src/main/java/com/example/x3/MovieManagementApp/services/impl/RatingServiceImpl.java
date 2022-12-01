@@ -12,6 +12,7 @@ import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    @Transactional
     public Ratings findByRatingsPK(long userId, long movieId) {
 
         RatingsPK ratingsPK = new RatingsPK(userId, movieId);
@@ -58,6 +60,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    @Transactional
     public String save(RatingAddDto ratingAddDto) {
         long userId = ratingAddDto.getUserId();
         long movieId = ratingAddDto.getMovieId();
@@ -81,6 +84,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    @Transactional
     public String update(RatingDto ratingDto) {
         RatingsPK tempRatingPK = new RatingsPK(ratingDto.getUserId(), ratingDto.getMovieId());
         Optional<Ratings> tempRating = ratingRepository.findById(tempRatingPK);
@@ -134,6 +138,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    @Transactional
     public String deleteByRatingsPK(RatingsPK ratingsPK) {
         ratingRepository.deleteById(ratingsPK);
         return "Rating has been deleted.";

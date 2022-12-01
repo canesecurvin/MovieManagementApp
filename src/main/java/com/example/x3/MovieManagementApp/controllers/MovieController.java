@@ -2,6 +2,7 @@ package com.example.x3.MovieManagementApp.controllers;
 
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,20 @@ public class MovieController {
         return movieService.findAll(Sort.by(Sort.Direction.ASC, "movieName"));
     }
 
-    @PostMapping("/id/{movieId}")
+    @PostMapping("/")
     public Optional<List<Movies>> addMovie(@RequestBody MovieAddDto newMovie) {
 
         return movieService.save(newMovie);
     }
 
     @PutMapping("/")
-    public String updateById(@RequestBody MovieDto movieDto) {
+    public String updateMovie(@RequestBody MovieDto movieDto) {
         return movieService.updateById(movieDto);
+    }
+
+    @PutMapping("/genre")
+    public String addMovieGenre(@RequestBody MovieGenreAddDto movieGenreAddDto) {
+        return movieService.addGenreToMovie(movieGenreAddDto);
     }
 
     @DeleteMapping("/{movieId}")

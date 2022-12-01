@@ -2,6 +2,7 @@ package com.example.x3.MovieManagementApp.services;
 
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,8 @@ public interface MovieService {
     Optional<List<Movies>> save(MovieAddDto movieAddDto);
 
     String updateById(MovieDto movieDto);
+
+    String addGenreToMovie(MovieGenreAddDto movieGenreAddDto);
 
     String deleteById(long id);
 }
