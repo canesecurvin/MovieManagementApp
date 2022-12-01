@@ -54,7 +54,7 @@ public class MovieController {
     }
 
     @PutMapping("/")
-    public String updateById(@RequestBody MovieDto movieDto) {
+    public String updateMovie(@RequestBody MovieDto movieDto) {
         return movieService.updateById(movieDto);
     }
 
