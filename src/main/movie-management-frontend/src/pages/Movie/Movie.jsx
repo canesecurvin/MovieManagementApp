@@ -59,7 +59,6 @@ function MovieJsx(props){
                     <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose}/>
                 </div>
             </div>
-            <AddCommentJsx movieId={props.id}/>
             <h3>Comments</h3>
             <CommentLogJsx id={props.id}/>
         </>

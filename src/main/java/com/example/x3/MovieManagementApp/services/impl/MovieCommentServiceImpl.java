@@ -68,21 +68,14 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     @Override
     public String saveComment(MovieCommentAddDto movieCommentAddDto) {
         MovieComments newMovieComment = new MovieComments();
-        Optional<Movies> movie = movieRepository.findById(movieCommentAddDto.getMovieId());
-        Optional<User> user = userRepository.findById(movieCommentAddDto.getUserId());
 
-        if (movie.isPresent() && user.isPresent()) {
-            newMovieComment.setComment(movieCommentAddDto.getComment());
-            newMovieComment.setMovie(movie.get());
-            newMovieComment.setUser(user.get());
-            newMovieComment.setTimestamp(movieCommentAddDto.getTimestamp());
-            movieCommentRepository.save(newMovieComment);
+        newMovieComment.setComment(movieCommentAddDto.getComment());
+        newMovieComment.setMovieId(movieCommentAddDto.getMovieId());
+        newMovieComment.setUserId(movieCommentAddDto.getUserId());
+        newMovieComment.setTimestamp(movieCommentAddDto.getTimestamp());
+        movieCommentRepository.save(newMovieComment);
 
-            return "Comment is saved";
-        }
-        else {
-            return "This movie is not found";
-        }
+        return "Comment is saved";
     }
 
     @Override

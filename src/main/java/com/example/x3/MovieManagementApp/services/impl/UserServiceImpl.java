@@ -1,5 +1,7 @@
 package com.example.x3.MovieManagementApp.services.impl;
 
+import com.example.x3.MovieManagementApp.config.JwtConfig.JwtProvider;
+import com.example.x3.MovieManagementApp.dtos.SecurityDtos.JwtAuthDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
 import com.example.x3.MovieManagementApp.entities.User;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtProvider jwtProvider;
+
     @Override
     public ResponseEntity<?> createNewUser(UserSignUpDto userSignUpDto) {
         if (userRepository.existsByDisplayName(userSignUpDto.getDisplayName())) {
@@ -48,13 +53,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> loginUser(UserLoginDto userLoginDto) {
+    public ResponseEntity<JwtAuthDto> loginUser(UserLoginDto userLoginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 userLoginDto.getDisplayName(), userLoginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseEntity<>("User successfully logged in", HttpStatus.OK);
+        Long userId = userRepository.findByDisplayName(userLoginDto.getDisplayName()).get().getId();
+        String displayName = userLoginDto.getDisplayName();
+        String generatedToken = jwtProvider.generateToken(authentication);
+
+        String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
+        return ResponseEntity.ok(new JwtAuthDto(jwt));
     }
 
 

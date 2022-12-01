@@ -1,29 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import MovieCommentsService from '../../../services/MovieCommentsService';
 import './CommentLog.css';
 
 function AddCommentJsx(props){
-    const [values, setValues] = useState({
-        comment: ''
-      });
-
-    function handleFieldChange(event) {
-        setValues((values)=> ({
-            ...values,
-            [event.target.id]: event.target.value
-        }));
-    }
-
-    function handleFormSubmit(event) {
-        const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        if (event) event.preventDefault();
-        MovieCommentsService.addMovieComment(values.comment, timestamp, props.movieId, 35).then(res => {
-        }).catch(err => {
-            alert(err);
-        })
-    }
+    const {handleFieldChange, handleFormSubmit} = props;
 
     return (
         <div className="add-container">
