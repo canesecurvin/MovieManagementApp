@@ -1,6 +1,5 @@
 package com.example.x3.MovieManagementApp.config.JwtConfig;
 
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -19,9 +19,11 @@ public class JwtProvider {
     private String jwtSecret;
     @Value("${sec.jwt-expiration-milliseconds}")
     private int jwtExpirationInMs;
-
-    private Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-
+    private Key key;
+    @PostConstruct
+    public void setKey(){
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(Authentication authentication) {
         String jwt = "";
@@ -58,7 +60,6 @@ public class JwtProvider {
             throw new Exception("JWT claims string is empty.");
         }
     }
-
 
     public String getDisplayNameFromJWT(String jwt) {
         Claims claims = Jwts.parserBuilder()
