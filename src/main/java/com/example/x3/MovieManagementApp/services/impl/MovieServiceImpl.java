@@ -110,6 +110,8 @@ public class MovieServiceImpl implements MovieService {
             }
         }
 
+        if (updateMovie.getGenres().isEmpty()) return "Attempted to add genre(s) that did not exist.";
+
         movieRepository.save(updateMovie);
 
         return "Genre(s) have been added.";
