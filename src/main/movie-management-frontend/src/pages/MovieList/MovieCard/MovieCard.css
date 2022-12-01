@@ -1,0 +1,8 @@
+.movie-name {
+    margin-bottom: 0;
+}
+.ratings {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5%;
+}

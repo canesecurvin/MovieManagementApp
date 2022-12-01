@@ -2,8 +2,10 @@ package com.example.x3.MovieManagementApp.services.impl;
 
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
+import com.example.x3.MovieManagementApp.repositories.GenreRepository;
 import com.example.x3.MovieManagementApp.repositories.MovieRepository;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +24,12 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository) {
+    private GenreRepository genreRepository;
+
+    @Autowired
+    public MovieServiceImpl(MovieRepository movieRepository, GenreRepository genreRepository) {
         movieRepository = movieRepository;
+        genreRepository = genreRepository;
     }
 
     @Override
@@ -86,6 +93,28 @@ public class MovieServiceImpl implements MovieService {
             movieRepository.saveAndFlush(movies);
         });
         return "Movie updated.";
+    }
+
+    @Override
+    public String addGenreToMovie(MovieGenreAddDto movieGenreAddDto) {
+        if (movieGenreAddDto.getGenres().isEmpty()) return "No genres have been added.";
+
+        Optional<Movies> tempMovie = movieRepository.findById(movieGenreAddDto.getMovieId());
+
+        if (tempMovie.isEmpty()) return "Cannot find movieId: " + movieGenreAddDto.getMovieId();
+        Movies updateMovie = tempMovie.get();
+
+        for (long genreId : movieGenreAddDto.getGenres()) {
+            if (genreRepository.findById(genreId).isPresent()) {
+                updateMovie.addGenre(genreRepository.findById(genreId).get());
+            }
+        }
+
+        if (updateMovie.getGenres().isEmpty()) return "Attempted to add genre(s) that did not exist.";
+
+        movieRepository.save(updateMovie);
+
+        return "Genre(s) have been added.";
     }
 
     @Override

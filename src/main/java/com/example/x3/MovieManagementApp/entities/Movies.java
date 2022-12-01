@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -55,7 +56,7 @@ public class Movies {
     private Set<Ratings> ratings = new HashSet<>();
 
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
+    @JsonIgnore
     @ToString.Exclude
     private Set<MovieComments> movieComments = new HashSet<>();
 
