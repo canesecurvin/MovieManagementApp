@@ -1,5 +1,7 @@
 package com.example.x3.MovieManagementApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +24,16 @@ public class MovieComments {
     private String comment;
 
     @Column(name = "timestamp")
-    private LocalDateTime timestamp;
+    private String timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonBackReference
+    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
     private Movies movie;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonBackReference
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
 
