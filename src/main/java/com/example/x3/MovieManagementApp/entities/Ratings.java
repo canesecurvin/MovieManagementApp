@@ -20,6 +20,7 @@ public class Ratings implements Serializable {
     private RatingsPK ratingsPK;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonBackReference
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
