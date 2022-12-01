@@ -53,18 +53,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<JwtAuthDto> loginUser(UserLoginDto userLoginDto) {
+    public ResponseEntity<?> loginUser(UserLoginDto userLoginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                userLoginDto.getDisplayName(), userLoginDto.getPassword()));
+                userLoginDto.getEmail(), userLoginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        Long userId = userRepository.findByDisplayName(userLoginDto.getDisplayName()).get().getId();
-        String displayName = userLoginDto.getDisplayName();
-        String generatedToken = jwtProvider.generateToken(authentication);
+        if (userRepository.existsByEmail(userLoginDto.getEmail())) {
+            Long userId = userRepository.findByEmail(userLoginDto.getEmail()).get().getId();
+            String displayName = userRepository.findById(userId).get().getDisplayName();
+            String generatedToken = jwtProvider.generateToken(authentication);
 
-        String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
-        return ResponseEntity.ok(new JwtAuthDto(jwt));
+            String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
+            return ResponseEntity.ok(new JwtAuthDto(jwt));
+        }
+
+
+        return new ResponseEntity<>("Invalid credentials", HttpStatus.BAD_REQUEST);
     }
 
 
