@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
+import AuthService from '../../services/AuthService';
 import {useNavigate, Link} from 'react-router-dom';
 import './Login.css';
 
@@ -40,10 +41,13 @@ function LoginJsx(){
         if (event) event.preventDefault();
         if (validateFormValues(values)){
             UserService.loginUser(values).then(res => {
+                AuthService.setCurrentUser(res.data);
+            }).then(()=> {
                 navigate('/movies');
-            }).catch(err => {
-                alert('login failed', err);
-            });
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
     }
 

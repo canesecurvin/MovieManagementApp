@@ -36,7 +36,11 @@ public class MovieComments {
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
+    @Column(name = "movie_id")
+    private Long movieId;
 
+    @Column(name = "user_id")
+    private Long userId;
 
 
 

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
+import AuthService from '../../services/AuthService';
 import {useNavigate, Link} from 'react-router-dom';
 
 export const SignupJsx = () => {
@@ -56,10 +57,13 @@ export const SignupJsx = () => {
 
     function loginAfterRegister(){
         UserService.loginUser({email: values.email, password: values.password}).then(res => {
+            AuthService.setCurrentUser(res.data);
+        }).then(()=> {
             navigate('/movies');
-        }).catch(err => {
-            alert('login failed', err);
-        });
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
 
