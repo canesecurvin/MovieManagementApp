@@ -20,7 +20,7 @@ function RatingModalJsx(props){
     function handleFormSubmit(event) {
         if (event) event.preventDefault();
         if (props.userRating==null) {
-            MovieRatingsService.rateMovie(37, movieId, rating.rating, rating.review).then(res => {
+            MovieRatingsService.rateMovie(39, movieId, rating.rating, rating.review).then(res => {
             }).catch(err => {
                 alert(err);
             });

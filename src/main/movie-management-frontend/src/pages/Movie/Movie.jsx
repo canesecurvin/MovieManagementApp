@@ -25,7 +25,7 @@ function MovieJsx(props){
         }).catch(err => {
             alert(err);
         })
-        MovieRatingsService.getMovieRatingByUser(37, props.id).then(res => {
+        MovieRatingsService.getMovieRatingByUser(39, props.id).then(res => {
             setRating(res.data.rating)
         }).catch(err => {
             alert('no rating');
