@@ -8,10 +8,10 @@ import lombok.ToString;
 @Getter
 @ToString
 public class JwtAuthDto {
-    private String acessToken;
+    private String accessToken;
     private String tokenType = "Bearer";
 
-    public JwtAuthDto(String acessToken) {
-        this.acessToken = acessToken;
+    public JwtAuthDto(String accessToken) {
+        this.accessToken = accessToken;
     }
 }
