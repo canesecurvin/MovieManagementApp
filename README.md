@@ -1,27 +1,3 @@
-<style>
- /* You know what a style block looks like.
-    Just drop your fancy image styles here and put this right in your Markdown, champ! */
-  img[src$="#block"] {
-  display: block;
-  margin: 0 auto;
-}
-
-img[src$="#avatar"] {
-  display: block;
-  margin: 0 auto;
-  border-radius: 50%;
-  max-width: 50%;
-}
-
-img[src$="#right"] {
-  float: right;
-  margin-left: 1em;
-  margin-bottom: 1em;
-}
- ![Avatar](https://avatars.githubusercontent.com/u/90649300?v=4#avatar)
-</style>
-https://github.com/Ileriayo/markdown-badges
-https://stackoverflow.com/questions/67342758/displaying-rounded-images-in-github-pages-for-profile-image-using-markdown
 <h1 align="center">movie management app 👋</h1>
 <p align="center">
   <a href="https://www.npmjs.com/package/readme-md-generator">
@@ -72,11 +48,10 @@ sec.jwt-expiration-milliseconds=
 ## Code Contributors
 
 <h4>This project exists thanks to all the people who contribute.</h4>
-<a href="https://github.com/canesecurvin"><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/77984787?v=4&h=200&w=200&fit=cover&mask=circle&maxage=7d" width="200"/></a>
-<a href="https://github.com/crl03"><img src="https://images.weserv.nl/?url=avatars.githubusercontent.com/u/65769327?v=4&h=200&w=200&fit=cover&mask=circle&maxage=7d" /></a>
+<a href="https://github.com/canesecurvin"><img src="avatars.githubusercontent.com/u/77984787?v=4" width="100" height="100"/></a>
+<a href="https://github.com/crl03"><img src="https://avatars.githubusercontent.com/u/14933248?v=4" /></a>
 <a href="https://github.com/devfep"><img src="https://avatars.githubusercontent.com/u/90649300?v=4" /></a>
 <a href="https://github.com/NataliiaBor1"><img src="https://avatars.githubusercontent.com/u/114429981?v=4" /></a>
-<!-- https://images.weserv.nl/?url=avatars.githubusercontent.com/u/77984787?v=4&h=200&w=200&fit=cover&mask=circle&maxage=7d -->
 
 ## Authors
 
