@@ -1,10 +1,37 @@
 <h1 align="center">movie management app 👋</h1>
 <p align="center">
-  <a href="https://www.npmjs.com/package/readme-md-generator">
-    <img alt="downloads" src="https://img.shields.io/npm/dm/readme-md-generator.svg?color=blue" target="_blank" />
-  </a>
   <a href="https://www.postgresql.org/">
     <img alt="node" src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=lightblue&style=flat" target="_blank" />
+  </a>
+  <a href="https://www.npmjs.com/">
+    <img alt="node" src="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white&style=flat" target="_blank" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img alt="node" src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white&style=flat" target="_blank" />
   </a>
 </p>
 
@@ -48,10 +75,10 @@ sec.jwt-expiration-milliseconds=
 ## Code Contributors
 
 <h4>This project exists thanks to all the people who contribute.</h4>
-<a href="https://github.com/canesecurvin"><img src="avatars.githubusercontent.com/u/77984787?v=4" width="100" height="100"/></a>
-<a href="https://github.com/crl03"><img src="https://avatars.githubusercontent.com/u/14933248?v=4" /></a>
-<a href="https://github.com/devfep"><img src="https://avatars.githubusercontent.com/u/90649300?v=4" /></a>
-<a href="https://github.com/NataliiaBor1"><img src="https://avatars.githubusercontent.com/u/114429981?v=4" /></a>
+<a href="https://github.com/canesecurvin"><img src="https://avatars.githubusercontent.com/u/77984787?v=4" width="100" height="100"/></a>
+<a href="https://github.com/crl03"><img src="https://avatars.githubusercontent.com/u/14933248?v=4" width="100" height="100"/></a>
+<a href="https://github.com/devfep"><img src="https://avatars.githubusercontent.com/u/90649300?v=4" width="100" height="100"/></a>
+<a href="https://github.com/NataliiaBor1"><img src="https://avatars.githubusercontent.com/u/114429981?v=4" width="100" height="100"/></a>
 
 ## Authors
 
