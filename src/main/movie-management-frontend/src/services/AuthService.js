@@ -5,12 +5,9 @@ class AuthService {
     currentUser = {};
     setCurrentUser(loginData){
         let resArr = loginData.accessToken.split(':');
-        console.log(loginData);
-        this.currentUser = {id: resArr[2], displayName: resArr[1]}
-        localStorage.setItem("currentUser", this.currentUser)
-        console.log(localStorage.getItem("currentUser"))
+        this.currentUser = {id: parseInt(resArr[2]), displayName: resArr[1]}
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
         this.setToken(resArr[0], loginData.tokenType);
-        console.log(this.currentUser, localStorage.getItem("token"));
     }
 
     getCurrentUser(){
@@ -30,7 +27,7 @@ class AuthService {
     }
 
     setToken(token, tokenType){
-        localStorage.setItem("token", {token: token, tokenType: tokenType});
+        localStorage.setItem("token", JSON.stringify({token: token, tokenType: tokenType}));
     }
 }
 
