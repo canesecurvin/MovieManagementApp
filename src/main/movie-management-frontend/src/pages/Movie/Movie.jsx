@@ -18,20 +18,22 @@ function MovieJsx(props){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(()=> {
-        MovieService.getMovie(props.id).then(res => {
-            setValues(()=> ({
-                movie: res.data
-            }));
-        }).catch(err => {
-            alert(err);
-        })
-        MovieRatingsService.getMovieRatingByUserAndMovie(39, props.id).then(res => {
-            console.log(props.id)
-            console.log(res.data)
-            setRating(res.data.rating)
-        }).catch(err => {
-            console.log(err);
-        })
+        try{
+            MovieService.getMovie(props.id).then(res => {
+                setValues(()=> ({
+                    movie: res.data
+                }));
+            }).catch(err => {
+                alert(err);
+            })
+        }catch(e){console.log(e)}
+        try {
+            MovieRatingsService.getMovieRatingByUserAndMovie(39, props.id).then(res => {
+                setRating(res.data.rating)
+            }).catch(err => {
+                console.log(err);
+            })
+        }catch(e){console.log(e)}
     },[])
     const renderStars = () => {
         if (rating !== undefined) {

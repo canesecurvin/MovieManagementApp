@@ -56,7 +56,7 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     @Override
     public List<MovieComments> findAllCommentsByUserIdAndMovieId(Long userId, Long movieId) {
         Optional<Movies> tempMovie = movieRepository.findById(movieId);
-        Optional<User> tempUser = userRepository.findById(movieId);
+        Optional<User> tempUser = userRepository.findById(userId);
 
         if (tempMovie.isPresent() && tempUser.isPresent()) {
             return movieCommentRepository.findAllByUserIdAndMovieId(userId, movieId);

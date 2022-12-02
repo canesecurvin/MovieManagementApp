@@ -7,53 +7,47 @@ import RatingStarsJsx from "../../../components/RatingStars";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import { RiSubtractLine } from "react-icons/ri";
+import {useNavigate} from "react-router-dom";
 import AuthService from "../../../services/AuthService";
 
 function RecentActivityJsx(){
+    const navigate = useNavigate();
+    function showSingleMovie(id){
+        navigate(`/movie/${id}`);
+    }
     const [movieActivity, setMovieActivity] = useState({
         activity: []
     });
-    // let activityMap = [];
-    // const currentUser = JSON.parse(AuthService.getCurrentUser());
     function getActivity(){
         let reviews = [];
         MovieRatingsService.getMovieRatingByUser(39).then(res => {
             res.data.forEach(mov => {
                 let curReview = {};
-                // curReview.rating = mov.rating;
-                // curReview.review = mov.review;
                 MovieService.getMovie(mov.ratingsPK.movieId).then(res => {
-                    console.log('getid', res.data)
-                    // curReview.movieName = res.data.movieName;
                     MovieCommentsService.getMovieCommentByMovieAndUser(mov.ratingsPK.movieId,39).then(res2 => {
+                        curReview.id = mov.ratingsPK.movieId;
                         curReview.rating = mov.rating;
                         curReview.review = mov.review;
                         curReview.movieName = res.data.movieName;
-                        console.log('com', res2.data, 'res', res2)
                         let comList = []
                         res2.data.forEach(com => {
                             comList.push(com.comment);
                         })
                         curReview.comments = comList;
-                        console.log('comlist', curReview, 'ccom', curReview.comments);
                         reviews.push(curReview);
-                        console.log(curReview);
-                        console.log(reviews);
                         setMovieActivity((movieActivity) => ({
                             ...movieActivity,
                             activity: [...reviews]
                         }));
-                        console.log(movieActivity);
-                    })
-                })
+                    }).catch(error=> {console.log(error);})
+                }).catch(error => {console.log(error);})
             })
-        })
+        }).catch(error => {console.log(error);})
     }
     useEffect(()=>{
         getActivity();
     },[])
     const activityMap = movieActivity.activity.map( function(act){
-        console.log('----------IN AM-------------')
         const comms = act.comments.map(function(comment){
             return (
                 <>
@@ -74,7 +68,7 @@ function RecentActivityJsx(){
                         {comms}
                         </Card.Body>
                         <Card.Footer>
-                            <Button className="button" variant="primary">View Movie</Button>
+                            <Button className="button" variant="primary" onClick={() => { showSingleMovie(act.id)}}>View Movie</Button>
                         </Card.Footer>
                     </Card>
                 </div>
