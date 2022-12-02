@@ -2,8 +2,10 @@ import React, {useEffect, useState}  from "react";
 import CommentCardJsx from "./CommentCard.jsx";
 import AddCommentJsx from "./AddComment";
 import MovieCommentsService from "../../../services/MovieCommentsService.js";
+import AuthService from "../../../services/AuthService.js";
 
 function CommentLogJsx(props){
+    const currentUser = AuthService.getCurrentUser();
     const [values, setValues] = useState({
         comments: []
     })
@@ -28,7 +30,7 @@ function CommentLogJsx(props){
     function handleFormSubmit(event) {
         const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
         if (event) event.preventDefault();
-        MovieCommentsService.addMovieComment(comment, timestamp, props.id, 39).then(res => {
+        MovieCommentsService.addMovieComment(comment, timestamp, props.id, currentUser.id).then(res => {
         }).catch(err => {
             alert(err);
         })

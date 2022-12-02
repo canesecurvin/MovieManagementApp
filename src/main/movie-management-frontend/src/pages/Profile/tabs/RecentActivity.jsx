@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import AuthService from "../../../services/AuthService";
 
 function RecentActivityJsx(){
+    const currentUser = AuthService.getCurrentUser();
     const navigate = useNavigate();
     function showSingleMovie(id){
         navigate(`/movie/${id}`);
@@ -20,11 +21,11 @@ function RecentActivityJsx(){
     });
     function getActivity(){
         let reviews = [];
-        MovieRatingsService.getMovieRatingByUser(39).then(res => {
+        MovieRatingsService.getMovieRatingByUser(currentUser.id).then(res => {
             res.data.forEach(mov => {
                 let curReview = {};
                 MovieService.getMovie(mov.ratingsPK.movieId).then(res => {
-                    MovieCommentsService.getMovieCommentByMovieAndUser(mov.ratingsPK.movieId,39).then(res2 => {
+                    MovieCommentsService.getMovieCommentByMovieAndUser(mov.ratingsPK.movieId,currentUser.id).then(res2 => {
                         curReview.id = mov.ratingsPK.movieId;
                         curReview.rating = mov.rating;
                         curReview.review = mov.review;

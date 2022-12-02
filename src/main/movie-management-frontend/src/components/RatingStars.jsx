@@ -4,14 +4,14 @@ import './Components.css';
 
 function RatingStarsJsx(props){
     try {
-        const displayFullStars = [...Array(props.rating)].map((i)=> {
+        const displayFullStars = [...Array(Math.floor(props.rating))].map((i)=> {
             return (
                 <div key={i}>
                     <FaStar key={i}/>
                 </div>
             )
         });
-        const displayEmptyStars = [...Array(5 - props.rating)].map((i)=> {
+        const displayEmptyStars = [...Array(Math.round(5 - props.rating))].map((i)=> {
             return (
                 <div key={i}>
                     <FaRegStar key={i}/>
