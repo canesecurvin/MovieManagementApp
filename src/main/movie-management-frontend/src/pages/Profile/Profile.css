@@ -1,0 +1,9 @@
+.profile {
+    margin-top: 3%;
+}
+
+.tab-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
