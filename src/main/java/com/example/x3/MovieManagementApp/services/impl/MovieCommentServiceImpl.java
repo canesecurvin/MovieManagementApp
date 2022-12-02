@@ -12,6 +12,7 @@ import com.example.x3.MovieManagementApp.services.MovieCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -66,6 +67,7 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     }
 
     @Override
+    @Transactional
     public String saveComment(MovieCommentAddDto movieCommentAddDto) {
         MovieComments newMovieComment = new MovieComments();
 
@@ -79,6 +81,7 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     }
 
     @Override
+    @Transactional
     public String update(MovieCommentDto movieCommentDto) {
         Optional<MovieComments> tempMovieComment = movieCommentRepository.findById(movieCommentDto.getId());
         if (tempMovieComment.isEmpty()) {
@@ -94,6 +97,7 @@ public class MovieCommentServiceImpl implements MovieCommentService {
     }
 
     @Override
+    @Transactional
     public String deleteById(Long id) {
         Optional<MovieComments> tempMovieComment = movieCommentRepository.findById(id);
 

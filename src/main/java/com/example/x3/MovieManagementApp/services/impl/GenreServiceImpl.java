@@ -8,6 +8,7 @@ import com.example.x3.MovieManagementApp.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public String save(GenreAddDto genreAddDto) {
         if (genreRepository.findByGenre(genreAddDto.getGenre()).isPresent()) {
             return "Genre already exists.";
@@ -55,6 +57,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public String updateById(GenreDto genreDto) {
         Optional<Genres> tempGenre = genreRepository.findById(genreDto.getId());
         if (tempGenre.isEmpty()) {
@@ -70,6 +73,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @Transactional
     public String deleteById(long id) {
         Optional<Genres> tempGenre = genreRepository.findById(id);
 

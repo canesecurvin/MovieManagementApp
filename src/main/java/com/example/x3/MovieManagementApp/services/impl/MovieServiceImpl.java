@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,6 +57,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional
     public Optional<List<Movies>> save(MovieAddDto movieAddDto) {
         ArrayList<Movies> tempMovieList = (ArrayList<Movies>) movieRepository.findAllByMovieName(movieAddDto.getMovieName());
         ArrayList<Movies> returnList = new ArrayList<>();
@@ -78,6 +80,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional
     public String updateById(MovieDto movieDto) {
         Optional<Movies> tempMovie = movieRepository.findById(movieDto.getId());
 
@@ -96,6 +99,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional
     public String addGenreToMovie(MovieGenreAddDto movieGenreAddDto) {
         if (movieGenreAddDto.getGenres().isEmpty()) return "No genres have been added.";
 
@@ -118,6 +122,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional
     public String deleteById(long id) {
         Optional<Movies> tempMovie = movieRepository.findById(id);
 
