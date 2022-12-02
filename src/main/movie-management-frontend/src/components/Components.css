@@ -3,3 +3,28 @@
     flex-direction: row;
     margin-bottom: 10%;
 }
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    width: 100%;
+}
+
+.nav-collapse {
+    flex-grow: 0;
+    justify-self: flex-end;
+    width: auto!important;
+}
+
+.nav-links {
+    margin: 0;
+}
+
+.logout-button {
+    background-color: none;
+    border: none;
+    color: rgba(255,255,255,.55);
+}
