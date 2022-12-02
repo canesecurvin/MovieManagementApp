@@ -8,7 +8,7 @@ class MovieRatingsService{
     }
 
     getMovieRatingByUser(userId, movieId){
-        return axios.get(baseUrl+`user/${userId}/${movieId}`);
+        return axios.get(baseUrl+`user/${userId}`);
     }
 
     rateMovie(userId, movieId, rating, review){

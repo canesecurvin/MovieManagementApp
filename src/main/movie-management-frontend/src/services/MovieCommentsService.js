@@ -24,6 +24,10 @@ class MovieCommentsService{
             }
         });
     }
+
+    getMovieCommentByMovieAndUser(movieId,userId){
+        return axios.get(baseUrl + `${movieId}/${userId}`);
+    }
 }
 
 export default new MovieCommentsService();

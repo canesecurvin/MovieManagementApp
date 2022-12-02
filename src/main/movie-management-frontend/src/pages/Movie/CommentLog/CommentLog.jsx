@@ -28,7 +28,7 @@ function CommentLogJsx(props){
     function handleFormSubmit(event) {
         const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
         if (event) event.preventDefault();
-        MovieCommentsService.addMovieComment(comment, timestamp, props.id, 35).then(res => {
+        MovieCommentsService.addMovieComment(comment, timestamp, props.id, 39).then(res => {
         }).catch(err => {
             alert(err);
         })

@@ -7,6 +7,7 @@ function Movie(){
     const id = useParams();
     return (
         <div className="container">
+            <p>HEEYY</p>
             <MovieJsx className="movie-container" {...id}/>
         </div>
     );

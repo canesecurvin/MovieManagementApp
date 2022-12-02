@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
 import AuthService from '../../services/AuthService';
+import NavigationJsx from '../../components/Navigation';
 import {useNavigate, Link} from 'react-router-dom';
 import './Login.css';
 
@@ -52,23 +53,26 @@ function LoginJsx(){
     }
 
     return (
-        <div className="container">
-            <h1>Login</h1>
-            <Form onSubmit={handleFormSubmit}>
-                <Form.Group className="mb-3 form-field" controlId="email" onChange={handleFieldChange}>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control required type="email" placeholder="Email"/>
-                    {formErrors.email && (
-                      <p className="text-danger">{formErrors.email}</p>
-                    )}
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="password" onChange={handleFieldChange}>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control required type="password" placeholder="Password"/>
-                </Form.Group>
-                <p>Dont have an account? <Link to="/register">Create Account</Link></p>
-                <Button className="submit-button" variant="primary" type="submit">Submit</Button>
-            </Form>
+        <div className="containers">
+            <NavigationJsx />
+            <div className="log-container">
+                <h1>Login</h1>
+                <Form onSubmit={handleFormSubmit}>
+                    <Form.Group className="mb-3 form-field" controlId="email" onChange={handleFieldChange}>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control required type="email" placeholder="Email"/>
+                        {formErrors.email && (
+                        <p className="text-danger">{formErrors.email}</p>
+                        )}
+                    </Form.Group>
+                    <Form.Group className="mb-3 form-field" controlId="password" onChange={handleFieldChange}>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control required type="password" placeholder="Password"/>
+                    </Form.Group>
+                    <p>Dont have an account? <Link to="/register">Create Account</Link></p>
+                    <Button className="submit-button" variant="primary" type="submit">Submit</Button>
+                </Form>
+            </div>
         </div>
     )
 }

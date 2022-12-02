@@ -1,5 +1,9 @@
-.container h1{
+.containers h1{
     margin-bottom: 3%;
+}
+
+.mov-container {
+    margin: 2.5%;
 }
 .movie-container {
     display: flex;

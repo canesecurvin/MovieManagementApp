@@ -1,9 +1,15 @@
-.container {
+.containers {
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     text-align: left;
+    width: 100%;
 }
+
+.log-container {
+    margin: 2.5%;
+}
+
 .form-field {
     text-align: left;
     width: 25%;
