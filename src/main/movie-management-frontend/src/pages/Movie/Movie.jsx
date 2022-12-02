@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
 import CommentLogJsx from "./CommentLog/CommentLog.jsx";
 import MovieService from "../../services/MovieService.js";
+import AuthService from "../../services/AuthService";
 import MovieRatingsService from "../../services/MovieRatingsService.js";
-import AddCommentJsx from "./CommentLog/AddComment.jsx";
 import RatingModalJsx from "./RatingModal.jsx";
 import RatingStarsJsx from '../../components/RatingStars.jsx'
 import Button from 'react-bootstrap/Button';
 import './Movie.css'
 
 function MovieJsx(props){
+    const currentUser = AuthService.getCurrentUser();
     const [values, setValues] = useState({
         movie: {}
     })
@@ -28,7 +29,8 @@ function MovieJsx(props){
             })
         }catch(e){console.log(e)}
         try {
-            MovieRatingsService.getMovieRatingByUserAndMovie(39, props.id).then(res => {
+            MovieRatingsService.getMovieRatingByUserAndMovie(currentUser.id, props.id).then(res => {
+                console.log('---mov', res.data)
                 setRating(res.data.rating)
             }).catch(err => {
                 console.log(err);

@@ -3,8 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import MovieRatingsService from '../../services/MovieRatingsService';
+import AuthService from '../../services/AuthService';
 
 function RatingModalJsx(props){
+    const currentUser = AuthService.getCurrentUser();
     const {show, handleClose, movieId} = props;
     const [rating, setRating] = useState({
         rating: 0,
@@ -20,7 +22,7 @@ function RatingModalJsx(props){
     function handleFormSubmit(event) {
         if (event) event.preventDefault();
         if (props.userRating==null) {
-            MovieRatingsService.rateMovie(39, movieId, rating.rating, rating.review).then(res => {
+            MovieRatingsService.rateMovie(currentUser.id, movieId, rating.rating, rating.review).then(res => {
             }).catch(err => {
                 alert(err);
             });
