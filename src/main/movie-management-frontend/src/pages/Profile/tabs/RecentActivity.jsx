@@ -3,8 +3,10 @@ import './Tabs.css';
 import MovieRatingsService from "../../../services/MovieRatingsService";
 import MovieService from "../../../services/MovieService";
 import MovieCommentsService from "../../../services/MovieCommentsService";
+import RatingStarsJsx from "../../../components/RatingStars";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
+import { RiSubtractLine } from "react-icons/ri";
 import AuthService from "../../../services/AuthService";
 
 function RecentActivityJsx(){
@@ -27,12 +29,13 @@ function RecentActivityJsx(){
                         curReview.rating = mov.rating;
                         curReview.review = mov.review;
                         curReview.movieName = res.data.movieName;
-                        console.log('com', res2.data)
+                        console.log('com', res2.data, 'res', res2)
                         let comList = []
                         res2.data.forEach(com => {
                             comList.push(com.comment);
                         })
                         curReview.comments = comList;
+                        console.log('comlist', curReview, 'ccom', curReview.comments);
                         reviews.push(curReview);
                         console.log(curReview);
                         console.log(reviews);
@@ -54,7 +57,7 @@ function RecentActivityJsx(){
         const comms = act.comments.map(function(comment){
             return (
                 <>
-                    <p>{comment}</p>
+                    <p className="com"><RiSubtractLine/> {comment}</p>
                 </>
             );
         })
@@ -64,8 +67,9 @@ function RecentActivityJsx(){
                     <Card>
                         <Card.Header><b>{act.movieName}</b></Card.Header>
                         <Card.Body>
-                        <p><b>Rating:</b> {act.rating}</p>
-                        <p><b>Review:</b> {act.review}</p>
+                        {/* <p><b>Rating:</b> {act.rating}</p> */}
+                        <RatingStarsJsx className="stars" rating={act.rating} />
+                        <p className="review"><b>Review:</b> {act.review}</p>
                         <p><b>Comments:</b></p>
                         {comms}
                         </Card.Body>

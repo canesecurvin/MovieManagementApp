@@ -7,7 +7,11 @@ class MovieRatingsService{
         return axios.get(baseUrl+`movie/${movieId}`);
     }
 
-    getMovieRatingByUser(userId, movieId){
+    getMovieRatingByUserAndMovie(userId, movieId){
+        return axios.get(baseUrl+`user/${userId}/${movieId}`);
+    }
+
+    getMovieRatingByUser(userId){
         return axios.get(baseUrl+`user/${userId}`);
     }
 

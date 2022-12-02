@@ -6,7 +6,6 @@ import Signup from './pages/Signup/Signup';
 import MovieList from './pages/MovieList/MovieList'
 import Movie from './pages/Movie/Movie';
 import Profile from './pages/Profile/Profile';
-import NavigationJsx from './components/Navigation';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -41,7 +40,6 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    {/* <NavigationJsx /> */}
     <React.StrictMode className="container">
       <RouterProvider router={router} />
     </React.StrictMode>
