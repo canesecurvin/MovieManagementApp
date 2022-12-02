@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthDto> authenticateUser(@RequestBody UserLoginDto userLoginDto){
+    public ResponseEntity<?> authenticateUser(@RequestBody UserLoginDto userLoginDto){
         return userService.loginUser(userLoginDto);
     }
 
