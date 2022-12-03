@@ -87,6 +87,10 @@ class MovieRepositoryTests {
         List<Movies> tempList = movieRepository.findAllByMovieName("Test Movie");
 
         Assertions.assertThat(tempList.size()).isEqualTo(2);
+        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        Assertions.assertThat(tempList.get(0).getMovieName()).isEqualTo("Test Movie");
+        Assertions.assertThat(tempList.get(1).getMovieName()).isEqualTo("Test Movie");
+
 
     }
 
@@ -100,16 +104,15 @@ class MovieRepositoryTests {
                 .rating(5)
                 .build();
 
-        Genres tempGenre = genreRepository.findByGenre("Action").get();
-
-        movieThree.addGenre(tempGenre);
-
         movieRepository.save(movieThree);
 
         List<Movies> tempList = movieRepository.findAllByReleaseYear(
                 2000, Sort.by(Sort.Direction.ASC, "movieName"));
 
         Assertions.assertThat(tempList.size()).isEqualTo(2);
+        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        Assertions.assertThat(tempList.get(0).getReleaseYear()).isEqualTo(2000);
+        Assertions.assertThat(tempList.get(1).getReleaseYear()).isEqualTo(2000);
     }
 
     @Test
@@ -131,6 +134,9 @@ class MovieRepositoryTests {
         List<Movies> tempList = movieRepository.findAllByGenres(tempGenre);
 
         Assertions.assertThat(tempList.size()).isEqualTo(2);
+        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        Assertions.assertThat(tempList.get(0).getGenres()).contains(tempGenre);
+        Assertions.assertThat(tempList.get(1).getGenres()).contains(tempGenre);
     }
 
     @Test
