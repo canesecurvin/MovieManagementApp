@@ -9,7 +9,6 @@ class MovieService{
     }
 
     getAllMovies(){
-        console.log(authHeader())
         try {
             return axios.get(baseUrl, { headers: authHeader() });  
         }catch(e){console.log(e)}

@@ -28,3 +28,13 @@
     border: none;
     color: rgba(255,255,255,.55);
 }
+
+.welcome {
+    color: rgba(255,255,255,.55);
+}
+
+.brand {
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-start;
+}

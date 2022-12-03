@@ -4,19 +4,27 @@ import MovieService from "../../services/MovieService.js";
 import AuthService from "../../services/AuthService";
 import MovieRatingsService from "../../services/MovieRatingsService.js";
 import RatingModalJsx from "./RatingModal.jsx";
+import Alert from 'react-bootstrap/Alert';
 import RatingStarsJsx from '../../components/RatingStars.jsx'
 import Button from 'react-bootstrap/Button';
 import './Movie.css'
 
 function MovieJsx(props){
     const currentUser = AuthService.getCurrentUser();
+    const [ratingSaved, setRatingSaved] = useState(false);
     const [values, setValues] = useState({
         movie: {}
     })
     const [rating, setRating] = useState(values.movie.rating);
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setRatingSaved(true)
+        setTimeout(() => {
+            setRatingSaved(false);
+          }, "3000")
+        setShow(false)
+    };
     const handleShow = () => setShow(true);
     useEffect(()=> {
         try{
@@ -30,7 +38,6 @@ function MovieJsx(props){
         }catch(e){console.log(e)}
         try {
             MovieRatingsService.getMovieRatingByUserAndMovie(currentUser.id, props.id).then(res => {
-                console.log('---mov', res.data)
                 setRating(res.data.rating)
             }).catch(err => {
                 console.log(err);
@@ -62,6 +69,7 @@ function MovieJsx(props){
                     <p><b>Released: </b>{values.movie.releaseYear}</p>
                     <p><b>Duration: </b>{values.movie.movieLength} Minutes</p>
                     <Button variant="primary" onClick={handleShow}>Rate</Button>
+                    {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
                     <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose}/>
                 </div>
             </div>
