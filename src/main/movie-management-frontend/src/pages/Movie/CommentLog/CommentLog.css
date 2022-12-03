@@ -32,3 +32,20 @@
     line-height: 7vh;
     border-radius: 10px;
 }
+
+.comment-card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+}
+
+.update-button {
+    margin-bottom: 2.5%;
+}
+

@@ -14,6 +14,7 @@ function CommentLogJsx(props){
     })
     useEffect(()=> {
         MovieCommentsService.getAllMovieComments(props.id).then(res => {
+            console.log(res.data);
             let sortedData = res.data.sort((a,b)=>{
                 return Date.parse(b.timestamp.slice(0, 19).replace(' ', 'T')) - Date.parse(a.timestamp.slice(0, 19).replace(' ', 'T'))
             })
