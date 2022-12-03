@@ -45,7 +45,22 @@
     justify-self: flex-end;
 }
 
-.update-button {
+.edit-button {
     margin-bottom: 2.5%;
 }
 
+.update-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comment-field {
+    width: 100%;
+    align-self: flex-end;
+}
+
+.update-button {
+    height: 70%;
+}
