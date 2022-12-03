@@ -45,7 +45,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movies> findAllByGenres(String genre) {
-        return movieRepository.findAllByGenres(genre);
+        Optional<Genres> tempGenre = genreRepository.findByGenre(genre);
+        if (tempGenre.isPresent()) {
+            return movieRepository.findAllByGenres(tempGenre.get());
+        }
+
+        return new ArrayList<>();
+
     }
 
     @Override
