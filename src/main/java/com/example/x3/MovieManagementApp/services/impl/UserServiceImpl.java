@@ -4,6 +4,7 @@ import com.example.x3.MovieManagementApp.config.JwtConfig.JwtProvider;
 import com.example.x3.MovieManagementApp.dtos.SecurityDtos.JwtAuthDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
+import com.example.x3.MovieManagementApp.dtos.UserDtos.UserRestDto;
 import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.UserService;
@@ -16,6 +17,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtProvider jwtProvider;
+
 
     @Override
     public ResponseEntity<?> createNewUser(UserSignUpDto userSignUpDto) {
@@ -62,10 +68,27 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(userLoginDto.getEmail())) {
             Long userId = userRepository.findByEmail(userLoginDto.getEmail()).get().getId();
             String displayName = userRepository.findById(userId).get().getDisplayName();
+            String email = userRepository.findById(userId).get().getEmail();
+            String firstName = userRepository.findById(userId).get().getFirstName();
+            String lastName = userRepository.findById(userId).get().getLastName();
             String generatedToken = jwtProvider.generateToken(authentication);
 
-            String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
-            return ResponseEntity.ok(new JwtAuthDto(jwt));
+//            String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
+            UserRestDto userRest = UserRestDto.builder()
+                    .id(userId)
+                    .displayName(displayName)
+                    .email(email)
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .accessToken(generatedToken)
+                    .tokenType("Bearer")
+                    .expiresIn(86400)
+                    .build();
+
+
+
+
+            return new ResponseEntity<>(userRest, HttpStatus.OK);
         }
 
 
