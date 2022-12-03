@@ -2,7 +2,7 @@ package com.example.x3.MovieManagementApp.repositories;
 
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ class MovieRepositoryTests {
 
         movieRepository.save(movieOne);
 
-        Assertions.assertThat(movieOne.getId()).isGreaterThan(0);
+        assertThat(movieOne.getId()).isGreaterThan(0);
     }
 
     @Test
@@ -54,7 +54,7 @@ class MovieRepositoryTests {
     void findByIdTest() {
         Movies tempMovie = movieRepository.findById(1L).get();
 
-        Assertions.assertThat(tempMovie.getId()).isEqualTo(1L);
+        assertThat(tempMovie.getId()).isEqualTo(1L);
     }
 
     @Test
@@ -67,7 +67,7 @@ class MovieRepositoryTests {
 
         Movies updatedMovie = movieRepository.save(tempMovie);
 
-        Assertions.assertThat(updatedMovie.getRating()).isEqualTo(1);
+        assertThat(updatedMovie.getRating()).isEqualTo(1);
 
     }
 
@@ -86,10 +86,10 @@ class MovieRepositoryTests {
 
         List<Movies> tempList = movieRepository.findAllByMovieName("Test Movie");
 
-        Assertions.assertThat(tempList.size()).isEqualTo(2);
-        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
-        Assertions.assertThat(tempList.get(0).getMovieName()).isEqualTo("Test Movie");
-        Assertions.assertThat(tempList.get(1).getMovieName()).isEqualTo("Test Movie");
+        assertThat(tempList.size()).isEqualTo(2);
+        assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        assertThat(tempList.get(0).getMovieName()).isEqualTo("Test Movie");
+        assertThat(tempList.get(1).getMovieName()).isEqualTo("Test Movie");
 
 
     }
@@ -109,10 +109,10 @@ class MovieRepositoryTests {
         List<Movies> tempList = movieRepository.findAllByReleaseYear(
                 2000, Sort.by(Sort.Direction.ASC, "movieName"));
 
-        Assertions.assertThat(tempList.size()).isEqualTo(2);
-        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
-        Assertions.assertThat(tempList.get(0).getReleaseYear()).isEqualTo(2000);
-        Assertions.assertThat(tempList.get(1).getReleaseYear()).isEqualTo(2000);
+        assertThat(tempList.size()).isEqualTo(2);
+        assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        assertThat(tempList.get(0).getReleaseYear()).isEqualTo(2000);
+        assertThat(tempList.get(1).getReleaseYear()).isEqualTo(2000);
     }
 
     @Test
@@ -133,10 +133,10 @@ class MovieRepositoryTests {
 
         List<Movies> tempList = movieRepository.findAllByGenres(tempGenre);
 
-        Assertions.assertThat(tempList.size()).isEqualTo(2);
-        Assertions.assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
-        Assertions.assertThat(tempList.get(0).getGenres()).contains(tempGenre);
-        Assertions.assertThat(tempList.get(1).getGenres()).contains(tempGenre);
+        assertThat(tempList.size()).isEqualTo(2);
+        assertThat(tempList.get(0)).isNotEqualTo(tempList.get(1));
+        assertThat(tempList.get(0).getGenres()).contains(tempGenre);
+        assertThat(tempList.get(1).getGenres()).contains(tempGenre);
     }
 
     @Test
@@ -149,6 +149,6 @@ class MovieRepositoryTests {
 
         Optional<Movies> checkMovie = movieRepository.findById(1L);
 
-        Assertions.assertThat(checkMovie).isEmpty();
+        assertThat(checkMovie).isEmpty();
     }
 }
