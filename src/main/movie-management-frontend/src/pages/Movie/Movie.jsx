@@ -12,6 +12,8 @@ import './Movie.css'
 function MovieJsx(props){
     const currentUser = AuthService.getCurrentUser();
     const [ratingSaved, setRatingSaved] = useState(false);
+    const [newRatingSaved, setNewRatingSaved] = useState(false);
+    const [newRating, setNewRating] = useState(0);
     const [values, setValues] = useState({
         movie: {}
     })
@@ -64,13 +66,14 @@ function MovieJsx(props){
             <h1><b>{values.movie.movieName}</b></h1>
             <div className="movie-info">
                 <div className="movie-pic"></div>
-                <div className="info">
+                <div className="/info">
                     {renderStars()}
+                    {newRatingSaved ? (<><RatingStarsJsx rating={newRating}/></>) : (<></>)}
                     <p><b>Released: </b>{values.movie.releaseYear}</p>
                     <p><b>Duration: </b>{values.movie.movieLength} Minutes</p>
                     <Button variant="primary" onClick={handleShow}>Rate</Button>
                     {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
-                    <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose}/>
+                    <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>
                 </div>
             </div>
             <h3>Comments</h3>
