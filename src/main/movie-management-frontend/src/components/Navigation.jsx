@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 function NavigationJsx(){
     const navigate = useNavigate();
+    const currentUser = AuthService.getCurrentUser();
     let isLoggedIn = AuthService.isLoggedIn();
     const handleLogout = ()=> {
         AuthService.logout();
@@ -21,7 +22,10 @@ function NavigationJsx(){
     return (
         <>
             <Navbar className="nav" bg="primary" variant="dark" sticky="top">
-                <Navbar.Brand>movie management</Navbar.Brand>
+                <Navbar.Brand className="brand">
+                    movie management
+                    {isLoggedIn ? (<p className="welcome">, welcome {currentUser.displayName}!</p>) : (<></>)}
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 {isLoggedIn ? 
                     (

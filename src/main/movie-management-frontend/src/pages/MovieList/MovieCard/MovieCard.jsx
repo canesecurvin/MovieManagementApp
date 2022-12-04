@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import RatingStarsJsx from "../../../components/RatingStars";
 import {useNavigate} from "react-router-dom";
 import './MovieCard.css';
+
 function MovieCardJsx(props){
     const navigate = useNavigate();
     function showSingleMovie(){
