@@ -18,3 +18,49 @@
     width: 10%;
     height: 5%;
 }
+
+.success-message {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding-left: 2.5%;
+    width: 30;
+    border: 1px solid #0f5132;
+    background-color: #badbcc;
+    color: #0f5132;
+    text-align: left;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
+}
+
+.comment-card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+}
+
+.edit-button {
+    margin-bottom: 2.5%;
+}
+
+.update-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.comment-field {
+    width: 100%;
+    align-self: flex-end;
+}
+
+.update-button {
+    height: 70%;
+}
