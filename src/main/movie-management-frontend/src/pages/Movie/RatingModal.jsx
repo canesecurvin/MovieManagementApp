@@ -7,7 +7,7 @@ import AuthService from '../../services/AuthService';
 
 function RatingModalJsx(props){
     const currentUser = AuthService.getCurrentUser();
-    const {show, handleClose, movieId} = props;
+    const {show, handleClose, movieId, setNewRating, setNewRatingSaved} = props;
     const [rating, setRating] = useState({
         rating: 0,
         review: ''
@@ -29,6 +29,8 @@ function RatingModalJsx(props){
         }else{
             alert('you already rated');
         }
+        setNewRatingSaved(true);
+        setNewRating(rating.rating)
         handleClose();
     }
 
