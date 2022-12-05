@@ -60,6 +60,7 @@ function RecentActivityJsx(){
     return (
         <div className="container">
             {activityMap}
+            {activityMap.length==0?(<><h3>No Recent Activity Found</h3></>):(<></>)}
         </div>
     );
 }

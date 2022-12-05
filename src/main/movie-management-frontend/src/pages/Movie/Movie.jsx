@@ -39,8 +39,8 @@ function MovieJsx(props){
                 setValues(()=> ({
                     movie: res.data
                 }));
-            }).catch(err => {
-                alert(err);
+            }).catch(error => {
+                console.log(error);
             })
         }catch(e){console.log(e)}
         try {

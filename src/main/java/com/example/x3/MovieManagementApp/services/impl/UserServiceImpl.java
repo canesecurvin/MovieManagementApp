@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtProvider jwtProvider;
 
-
-
     @Override
     public ResponseEntity<?> createNewUser(UserSignUpDto userSignUpDto) {
         if (userRepository.existsByDisplayName(userSignUpDto.getDisplayName())) {
@@ -131,5 +129,24 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
+    public ResponseEntity<?> updateUserPassword(Long id, UpdateUserPasswordDto updateUserPasswordDto) {
+        if (id != null && userRepository.existsById(id)){
+            Optional<User> userOptional = userRepository.findById(id);
+            User updatedUser = new User();
+            if (userOptional.isPresent()){
+                User user = userOptional.get();
+                if (passwordEncoder.matches(updateUserPasswordDto.getOldPassword(), userOptional.get().getPassword())){
+                    updatedUser.setId(id);
+                    updatedUser.setEmail(user.getEmail());
+                    updatedUser.setDisplayName(user.getDisplayName());
+                    updatedUser.setLastName(user.getLastName());
+                    updatedUser.setFirstName(user.getFirstName());
+                    updatedUser.setPassword(passwordEncoder.encode(updateUserPasswordDto.getNewPassword()));
+                    userRepository.save(updatedUser);
+                }
+            }
+            return new ResponseEntity<>("Password Updated", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

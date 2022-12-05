@@ -1,5 +1,6 @@
 package com.example.x3.MovieManagementApp.controllers;
 
+import com.example.x3.MovieManagementApp.dtos.UserDtos.UpdateUserPasswordDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserBasicUpdateRequestDto;
@@ -34,6 +35,11 @@ public class UserController {
     @PutMapping("user/{id}")
     public ResponseEntity<?> updateBasicUserInfo(@PathVariable Long id, @RequestBody UserBasicUpdateRequestDto userBasicUpdateRequestDto){
         return userService.updateBasicInfo(userBasicUpdateRequestDto, id);
+    }
+
+    @PutMapping("password/{id}")
+    public ResponseEntity<?> updateUserPassword(@PathVariable Long id, @RequestBody UpdateUserPasswordDto updateUserPasswordDto){
+        return userService.updateUserPassword(id, updateUserPasswordDto);
     }
 
 }
