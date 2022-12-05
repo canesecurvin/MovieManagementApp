@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import RatingStarsJsx from "../../../components/RatingStars";
 import Card from 'react-bootstrap/Card';
@@ -8,13 +8,15 @@ import { ImageUrls } from '../../../assets/image-urls';
 function ActivityCardJsx(props){
     const images = ImageUrls['movie-posters'];
     const navigate = useNavigate();
+    const [posterImage, setPosterImage] = useState('');
     function showSingleMovie(id){
-        navigate(`/movie/${id}`);
+        navigate(`/movie/${id}`, {state:{image:posterImage}});
     }
     const randomizePoster = (id) => {
         let img = document.getElementById(`movie-${id}`);
         let image = images[Math.floor(Math.random()*images.length)]
         img.style.backgroundImage = `url(${image})`;
+        setPosterImage(image);
     }
     useEffect(()=>{
         randomizePoster(props.id);
