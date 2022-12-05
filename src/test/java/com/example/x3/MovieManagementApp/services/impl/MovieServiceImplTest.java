@@ -168,13 +168,31 @@ class MovieServiceImplTest {
                 .rating(5)
                 .build();
 
-        when(movieRepository.save(any(Movies.class))).thenReturn(movieOne);
         when(movieRepository.findAllByMovieName(anyString())).thenReturn(tempSaveList);
+        when(movieRepository.save(any(Movies.class))).thenReturn(movieOne);
 
         Optional<List<Movies>> tempList = movieServiceImpl.save(movieOneAddDto);
 
-
+        verify(movieRepository, times(1)).save(any(Movies.class));
         assertEquals(Optional.empty(), tempList);
+    }
+
+    @Test
+    void saveAlreadyExistsTest() {
+        MovieAddDto movieOneAddDto = MovieAddDto.builder()
+                .movieName("Test Movie")
+                .releaseYear(2000)
+                .movieLength(120)
+                .rating(5)
+                .build();
+
+        when(movieRepository.findAllByMovieName(anyString())).thenReturn(tempMovies);
+
+        Optional<List<Movies>> tempList = movieServiceImpl.save(movieOneAddDto);
+
+        verify(movieRepository, times(0)).save(any(Movies.class));
+        assertTrue(tempList.isPresent());
+        assertEquals(1, tempList.get().size());
     }
 
     @Test
