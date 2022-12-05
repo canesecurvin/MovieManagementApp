@@ -14,8 +14,8 @@ function MovieListJsx(){
                 setMoviesList(()=> ({
                     movies: [...res.data]
                 }));
-            }).catch(err => {
-                alert('couldnt retrieve movies');
+            }).catch(error => {
+                console.log(error);
             });
         }
         getMovies();

@@ -50,3 +50,17 @@
     display: flex;
     flex-direction: column;
 }
+
+.success-message {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding-left: 2.5%;
+    width: 30;
+    border: 1px solid #0f5132;
+    background-color: #badbcc;
+    color: #0f5132;
+    text-align: left;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
+}

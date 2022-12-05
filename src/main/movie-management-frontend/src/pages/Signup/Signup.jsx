@@ -47,8 +47,8 @@ export const SignupJsx = () => {
         if (event) event.preventDefault();
         if (validateFormValues(values)){
             UserService.createUser(values).then(res => {
-            }).catch(err => {
-                alert(err);
+            }).catch(error => {
+                console.log(error);
             }).finally(()=> {
                 loginAfterRegister();
             })

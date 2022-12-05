@@ -1,7 +1,6 @@
 import React, {useEffect, useState}  from "react";
 import CommentCardJsx from "./CommentCard.jsx";
 import AddCommentJsx from "./AddComment";
-import Alert from 'react-bootstrap/Alert';
 import MovieCommentsService from "../../../services/MovieCommentsService.js";
 import AuthService from "../../../services/AuthService.js";
 import './CommentLog.css';
@@ -20,8 +19,8 @@ function CommentLogJsx(props){
             setValues(()=> ({
                 comments: sortedData
             }));
-        }).catch(err => {
-            alert(err);
+        }).catch(error => {
+            console.log(error);
         })
     },[values.comments, commentSaved])
     let onSuccess = () => {
@@ -41,8 +40,8 @@ function CommentLogJsx(props){
             setTimeout(() => {
                 setCommentSaved(false);
               }, "3000")
-        }).catch(err => {
-            alert(err);
+        }).catch(error => {
+            console.log(error);
         }).then(() => {
             onSuccess('Comment Saved');
         })
