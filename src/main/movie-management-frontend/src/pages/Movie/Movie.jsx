@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useLocation} from 'react-router-dom';
 import CommentLogJsx from "./CommentLog/CommentLog.jsx";
 import MovieService from "../../services/MovieService.js";
 import AuthService from "../../services/AuthService";
@@ -10,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import './Movie.css'
 
 function MovieJsx(props){
+    const location = useLocation();
     const currentUser = AuthService.getCurrentUser();
     const [ratingSaved, setRatingSaved] = useState(false);
     const [newRatingSaved, setNewRatingSaved] = useState(false);
@@ -29,6 +31,9 @@ function MovieJsx(props){
     };
     const handleShow = () => setShow(true);
     useEffect(()=> {
+        let img = document.getElementById(`poster`);
+        let url = location.state.image.substring(3, location.state.image.length)
+        img.style.backgroundImage = `url(${url})`;
         try{
             MovieService.getMovie(props.id).then(res => {
                 setValues(()=> ({
@@ -65,7 +70,7 @@ function MovieJsx(props){
         <>
             <h1><b>{values.movie.movieName}</b></h1>
             <div className="movie-info">
-                <div className="movie-pic"></div>
+                <div className="poster" id="poster"></div>
                 <div className="/info">
                     {renderStars()}
                     {newRatingSaved ? (<><RatingStarsJsx rating={newRating}/></>) : (<></>)}
