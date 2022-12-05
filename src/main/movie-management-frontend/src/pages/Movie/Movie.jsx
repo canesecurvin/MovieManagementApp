@@ -22,6 +22,7 @@ function MovieJsx(props){
 
     const [show, setShow] = useState(false);
     const handleClose = () => {
+        document.getElementById("rating-button").style.display = 'none';
         setRatingSaved(true)
         setTimeout(() => {
             setRatingSaved(false);
@@ -75,7 +76,7 @@ function MovieJsx(props){
                     {newRatingSaved ? (<><RatingStarsJsx rating={newRating}/></>) : (<></>)}
                     <p><b>Released: </b>{values.movie.releaseYear}</p>
                     <p><b>Duration: </b>{values.movie.movieLength} Minutes</p>
-                    {rating?<Button variant="primary" onClick={handleShow}>Rate</Button>:(<></>)}
+                    {!rating ? (<Button variant="primary" id="rating-button" onClick={handleShow}>Rate</Button>):(<></>)}
                     {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
                     <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>
                 </div>
