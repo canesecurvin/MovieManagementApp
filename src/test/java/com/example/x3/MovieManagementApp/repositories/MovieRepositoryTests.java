@@ -21,10 +21,10 @@ import java.util.Optional;
 class MovieRepositoryTests {
 
     @Autowired
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    GenreRepository genreRepository;
+    private GenreRepository genreRepository;
 
     @Test
     @Order(1)
@@ -46,7 +46,7 @@ class MovieRepositoryTests {
 
         movieRepository.save(movieOne);
 
-        assertThat(movieOne.getId()).isGreaterThan(0);
+        assertThat(movieOne.getId()).isEqualTo(1);
     }
 
     @Test

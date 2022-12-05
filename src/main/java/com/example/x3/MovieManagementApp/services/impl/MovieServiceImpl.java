@@ -117,10 +117,10 @@ public class MovieServiceImpl implements MovieService {
         for (long genreId : movieGenreAddDto.getGenres()) {
             if (genreRepository.findById(genreId).isPresent()) {
                 updateMovie.addGenre(genreRepository.findById(genreId).get());
+            } else {
+                return "Attempted to add genreId: " + genreId + " that did not exist.";
             }
         }
-
-        if (updateMovie.getGenres().isEmpty()) return "Attempted to add genre(s) that did not exist.";
 
         movieRepository.save(updateMovie);
 
