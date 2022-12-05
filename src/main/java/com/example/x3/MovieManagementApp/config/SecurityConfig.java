@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,6 +36,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers("/", "/static/**").permitAll()
+                .antMatchers("/v1/users/user/**").authenticated()
                 .antMatchers("/v1/users/**").permitAll()
                         .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -53,6 +53,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 
 }
