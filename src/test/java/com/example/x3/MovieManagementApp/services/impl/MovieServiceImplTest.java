@@ -193,6 +193,8 @@ class MovieServiceImplTest {
         verify(movieRepository, times(0)).save(any(Movies.class));
         assertTrue(tempList.isPresent());
         assertEquals(1, tempList.get().size());
+        assertEquals("Test Movie", tempList.get().get(0).getMovieName());
+        assertEquals(2000, tempList.get().get(0).getReleaseYear());
     }
 
     @Test
