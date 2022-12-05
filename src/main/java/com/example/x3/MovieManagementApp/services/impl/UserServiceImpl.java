@@ -131,5 +131,24 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public ResponseEntity<?> updatePassword(UserPasswordRequestDto userPasswordRequestDto, Long id) {
+        if (id != null && userRepository.existsById(id)){
+            Optional<User> userDB = userRepository.findById(id);
+            User updatedUser = new User();
 
+            if(passwordEncoder.matches(userPasswordRequestDto.getOldPassword(), userDB.get().getPassword())){
+                updatedUser.setId(id);
+                updatedUser.setEmail(userDB.get().getEmail());
+                updatedUser.setDisplayName(userDB.get().getDisplayName());
+                updatedUser.setPassword(passwordEncoder.encode(userPasswordRequestDto.getNewPassword()));
+                updatedUser.setFirstName(userDB.get().getFirstName());
+                updatedUser.setLastName(userDB.get().getLastName());
+
+                userRepository.save(updatedUser);
+            }
+            return new ResponseEntity<>("User password has been updated", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
