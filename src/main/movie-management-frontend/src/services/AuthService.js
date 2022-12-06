@@ -4,10 +4,26 @@ import {useNavigate} from 'react-router-dom';
 class AuthService {
     currentUser = {};
     setCurrentUser(loginData){
-        let resArr = loginData.accessToken.split(':');
-        this.currentUser = {id: parseInt(resArr[2]), displayName: resArr[1]}
+        this.currentUser = {
+            id: loginData.id,
+            email: loginData.email,
+            firstName: loginData.firstName,
+            lastName: loginData.lastName,
+            displayName: loginData.displayName
+        }
         localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-        this.setToken(resArr[0], loginData.tokenType);
+        this.setToken(loginData.accessToken, loginData.tokenType);
+    }
+
+    updateCurrentUser(updatedUser) {
+        this.currentUser = {
+            id: this.getCurrentUser().id,
+            email: updatedUser.email,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            displayName: updatedUser.displayName
+        }
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
     }
 
     getCurrentUser(){

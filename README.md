@@ -9,28 +9,28 @@
   <a href="https://reactjs.org/">
     <img alt="node" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://spring.io/">
     <img alt="node" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://azure.microsoft.com/en-us/free/">
     <img alt="node" src="https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://www.jetbrains.com/idea/">
     <img alt="node" src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://code.visualstudio.com/">
     <img alt="node" src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://www.java.com/en/">
     <img alt="node" src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://www.javascript.com/">
     <img alt="node" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://trello.com/">
     <img alt="node" src="https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white&style=flat" target="_blank" />
   </a>
-  <a href="https://reactjs.org/">
+  <a href="https://discord.com/">
     <img alt="node" src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white&style=flat" target="_blank" />
   </a>
 </p>
@@ -51,9 +51,7 @@ Just run the following command at the root of your project and answer questions:
 mvn install
 ```
 
-Dont forget:
-
-`application.properties file to src/main/resources directory`
+Add `application.properties` file to `src/main/resources directory`
 
 Your `application.properties` should have these properties:
 ```
@@ -71,6 +69,20 @@ spring.jpa.show-sql=
 sec.jwt-secret=
 sec.jwt-expiration-milliseconds=
 ```
+## Documentation
+
+Access Swagger UI API Documentation at `{host}:{port}/swagger-ui/`
+<img src="src/main/resources/assets/swagger-ui.png" width="700" height="400"/></a>
+
+#### Documentation Usage
+
+1. Create user at the `user-controller -> register API` endpoint.
+2. Login with <b>newly created</b> `email` and `password` at the `user-controller -> login API`. You should receive a JWT token in the login response.
+3. Click `Authorize` button above `genre-controller` and enter JWT from login response.
+4. You should then be able to test `genre`, `movie`, `movie-comments` and `rating APIs` with JWT from login response.
+<br />
+<br />
+<br />
 
 ## Code Contributors
 
@@ -98,6 +110,7 @@ sec.jwt-expiration-milliseconds=
 
 👤 **NATALIIA BORISENKO**
 
+- Twitter: [@NataliiaBor1](https://twitter.com/NataliiaBor1)
 - Github: [@NataliiaBor1](https://github.com/NataliiaBor1)
 
 ## Show your support

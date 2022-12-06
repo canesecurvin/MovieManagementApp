@@ -1,53 +1,85 @@
-import React from "react";
+import React, {useState} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/esm/Button";
+import UpdatePasswordJsx from "./UpdatePassword";
+import AuthService from "../../../services/AuthService";
+import UserService from "../../../services/UserService";
 import './Tabs.css';
 
-const user = {
-    email: 'janed@gmail.com',
-    displayName: 'Jane',
-    firstName: 'Jane',
-    lastName: 'Doe'
-}
-
 function SettingsJsx(){
+    const currentUser = AuthService.getCurrentUser();
+    const [basicValues, setBasicValues] = useState({
+        id: currentUser.id,
+        email: currentUser.email,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        displayName: currentUser.displayName,
+      });
+    const [formErrors, setFormErrors] = useState({});
+    const [userUpdated, setUserUpdated] = useState(false);
+    function handleBasicFieldChange(event) {
+        setBasicValues((basicValues)=> ({
+            ...basicValues,
+            [event.target.id]: event.target.value
+        }));
+    }
+    function validateFormValues(){
+        let errors = {};
+        let emaillRgx = /\S+@\S+\.\S+/;
+        if (!emaillRgx.test(basicValues.email)){
+            errors.email = 'Email is invalid';
+        }
+
+        setFormErrors(errors);
+
+        if (Object.keys(errors).length === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    const handleBasicSubmit = (event) => {
+        if (event) event.preventDefault();
+        if (validateFormValues(basicValues)){
+            UserService.updateUserBasicInfo(basicValues).then(res => {
+                setUserUpdated(true);
+                setTimeout(() => {
+                    setUserUpdated(false);
+                }, "3000")
+                AuthService.updateCurrentUser(res.data);
+            }).catch(error => {console.log(error);})
+        }
+    }
     return (
         <div className="container">
             <div className="basic-info">
                 <h3>Basic Info</h3>
-                <Form.Group className="mb-3 form-field" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Email" defaultValue={user.email}/>
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="display-name">
-                    <Form.Label>Display Name</Form.Label>
-                    <Form.Control type="text" placeholder="Display Name" defaultValue={user.displayName}/>
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="first-name">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text" placeholder="First Name" defaultValue={user.firstName}/>
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="last-name">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text" placeholder="Last Name" defaultValue={user.lastName}/>
-                </Form.Group>
-                <Button className="submit-button" variant="primary" type="submit">Update Basic Info</Button>
+                <Form onSubmit={handleBasicSubmit}>
+                    <Form.Group className="mb-3 form-field" controlId="email" onChange={handleBasicFieldChange}>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Email" defaultValue={currentUser.email}/>
+                        {formErrors.email && (
+                            <p className="text-danger">{formErrors.email}</p>
+                        )}
+                    </Form.Group>
+                    <Form.Group className="mb-3 form-field" controlId="displayName" onChange={handleBasicFieldChange}>
+                        <Form.Label>Display Name</Form.Label>
+                        <Form.Control type="text" placeholder="Display Name" defaultValue={currentUser.displayName}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 form-field" controlId="firstName" onChange={handleBasicFieldChange}>
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control type="text" placeholder="First Name" defaultValue={currentUser.firstName}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 form-field" controlId="lastName" onChange={handleBasicFieldChange}>
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control type="text" placeholder="Last Name" defaultValue={currentUser.lastName}/>
+                    </Form.Group>
+                    <Button className="submit-button" variant="primary" type="submit">Update Basic Info</Button>
+                </Form>
+                {userUpdated ? (<div className="success-message"><p>User Info Updated</p></div>) : (<></>)}
             </div>
             <div className="update-password">
-                <h3>Update Password</h3>
-                <Form.Group className="mb-3 form-field" controlId="prev-password">
-                    <Form.Label>Previous Password</Form.Label>
-                    <Form.Control type="password" placeholder="Previous Password"/>
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="new-password">
-                    <Form.Label>New Password</Form.Label>
-                    <Form.Control type="password" placeholder="New Password"/>
-                </Form.Group>
-                <Form.Group className="mb-3 form-field" controlId="confirm-password">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm Password"/>
-                </Form.Group>
-                <Button className="submit-button" variant="primary" type="submit">Update Password</Button>
+                <UpdatePasswordJsx />
             </div>
         </div>
     );

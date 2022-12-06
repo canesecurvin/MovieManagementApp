@@ -9,10 +9,13 @@ class MovieService{
     }
 
     getAllMovies(){
-        console.log(authHeader())
         try {
             return axios.get(baseUrl, { headers: authHeader() });  
         }catch(e){console.log(e)}
+    }
+
+    getAllMoviesByGenre(genreName) {
+        return axios.get(baseUrl + `genre/${genreName}`, { headers: authHeader() });
     }
 }
 

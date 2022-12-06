@@ -5,13 +5,48 @@
 .mov-container {
     margin: 2.5%;
 }
-.movie-container {
+.movie-list-container {
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.movie-list {
+    width: 100vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 .movie-card {
     width: 25%;
-    height: 30%;
+    height: 10%;
     margin: 2.5%;
+}
+
+.genre-dropdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.genre-name {
+    color: #6c757d;
+    margin-left: 7%;
+    margin-top: 2.5%;
+}
+
+.genre-success-message {
+    margin-bottom: 2.5%;
+    margin-left: 1.5%;
+    padding-left: 2.5%;
+    width: 30%;
+    border: 1px solid #0f5132;
+    background-color: #badbcc;
+    color: #0f5132;
+    text-align: left;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
 }

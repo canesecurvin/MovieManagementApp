@@ -3,9 +3,11 @@ import CommentCardJsx from "./CommentCard.jsx";
 import AddCommentJsx from "./AddComment";
 import MovieCommentsService from "../../../services/MovieCommentsService.js";
 import AuthService from "../../../services/AuthService.js";
+import './CommentLog.css';
 
 function CommentLogJsx(props){
     const currentUser = AuthService.getCurrentUser();
+    const [commentSaved, setCommentSaved] = useState(false);
     const [values, setValues] = useState({
         comments: []
     })
@@ -17,10 +19,13 @@ function CommentLogJsx(props){
             setValues(()=> ({
                 comments: sortedData
             }));
-        }).catch(err => {
-            alert(err);
+        }).catch(error => {
+            console.log(error);
         })
-    },[values.comments])
+    },[values.comments, commentSaved])
+    let onSuccess = () => {
+        return (<></>);
+    }
     const [comment, setComment] = useState('');
 
     function handleFieldChange(event) {
@@ -31,14 +36,21 @@ function CommentLogJsx(props){
         const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
         if (event) event.preventDefault();
         MovieCommentsService.addMovieComment(comment, timestamp, props.id, currentUser.id).then(res => {
-        }).catch(err => {
-            alert(err);
+            setCommentSaved(true);
+            setTimeout(() => {
+                setCommentSaved(false);
+              }, "3000")
+        }).catch(error => {
+            console.log(error);
+        }).then(() => {
+            onSuccess('Comment Saved');
         })
         event.target.reset();
     }
     return (
         <div>
             <AddCommentJsx movieId={props.id} handleFieldChange={handleFieldChange} handleFormSubmit={handleFormSubmit}/>
+            {commentSaved ? (<div className="success-message"><p>Comment Saved</p></div>) : (<></>)}
             {values.comments.map(function(com,i){
                 return (
                     <div key={i}>

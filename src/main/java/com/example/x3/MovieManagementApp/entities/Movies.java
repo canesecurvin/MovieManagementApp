@@ -16,6 +16,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Movies {
 
     @Id

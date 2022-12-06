@@ -1,21 +1,14 @@
 import React, {useEffect, useState} from "react";
-import './Tabs.css';
 import MovieRatingsService from "../../../services/MovieRatingsService";
 import MovieService from "../../../services/MovieService";
 import MovieCommentsService from "../../../services/MovieCommentsService";
-import RatingStarsJsx from "../../../components/RatingStars";
-import Card from 'react-bootstrap/Card';
-import Button from "react-bootstrap/Button";
+import ActivityCardJsx from "./ActivityCard";
 import { RiSubtractLine } from "react-icons/ri";
-import {useNavigate} from "react-router-dom";
 import AuthService from "../../../services/AuthService";
+import './Tabs.css';
 
 function RecentActivityJsx(){
     const currentUser = AuthService.getCurrentUser();
-    const navigate = useNavigate();
-    function showSingleMovie(id){
-        navigate(`/movie/${id}`);
-    }
     const [movieActivity, setMovieActivity] = useState({
         activity: []
     });
@@ -52,26 +45,14 @@ function RecentActivityJsx(){
         const comms = act.comments.map(function(comment){
             return (
                 <>
-                    <p className="com"><RiSubtractLine/> {comment}</p>
+                    <p className="com">&nbsp;&nbsp;&nbsp;<RiSubtractLine/> {comment}</p>
                 </>
             );
         })
         return (
             <>
                 <div className="activity">
-                    <Card>
-                        <Card.Header><b>{act.movieName}</b></Card.Header>
-                        <Card.Body>
-                        {/* <p><b>Rating:</b> {act.rating}</p> */}
-                        <RatingStarsJsx className="stars" rating={act.rating} />
-                        <p className="review"><b>Review:</b> {act.review}</p>
-                        <p><b>Comments:</b></p>
-                        {comms}
-                        </Card.Body>
-                        <Card.Footer>
-                            <Button className="button" variant="primary" onClick={() => { showSingleMovie(act.id)}}>View Movie</Button>
-                        </Card.Footer>
-                    </Card>
+                    <ActivityCardJsx {...act} comms={comms}/>
                 </div>
             </>
         );
@@ -79,6 +60,7 @@ function RecentActivityJsx(){
     return (
         <div className="container">
             {activityMap}
+            {activityMap.length==0?(<><h3>No Recent Activity Found</h3></>):(<></>)}
         </div>
     );
 }

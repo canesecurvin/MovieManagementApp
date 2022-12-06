@@ -24,3 +24,31 @@ h1 {
     border: 1px solid black;
     margin-right: 3%;
 }
+
+.success-message {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding-left: 2.5%;
+    width: 30;
+    border: 1px solid #0f5132;
+    background-color: #badbcc;
+    color: #0f5132;
+    text-align: left;
+    height: 7vh;
+    line-height: 7vh;
+    border-radius: 10px;
+}
+
+.poster {
+    box-shadow: 0 10px 6px -6px #777;
+    min-width: 14vw;
+    min-height: 35vh;
+    max-height: 35vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.info {
+    margin-left: 2.5%;
+}
