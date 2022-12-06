@@ -47,7 +47,10 @@ function LoginJsx(){
                 navigate('/movies');
             })
             .catch(error => {
+                let errors = {};
                 console.log(error);
+                errors.password = 'Email or Password in incorrect';
+                setFormErrors(errors);
             })
         }
     }
@@ -68,6 +71,9 @@ function LoginJsx(){
                     <Form.Group className="mb-3 form-field" controlId="password" onChange={handleFieldChange}>
                         <Form.Label>Password</Form.Label>
                         <Form.Control required type="password" placeholder="Password"/>
+                        {formErrors.password && (
+                      <p className="text-danger">{formErrors.password}</p>
+                    )}
                     </Form.Group>
                     <p>Dont have an account? <Link to="/register">Create Account</Link></p>
                     <Button className="submit-button" variant="primary" type="submit">Submit</Button>

@@ -1,10 +1,7 @@
 package com.example.x3.MovieManagementApp.services.impl;
 
 import com.example.x3.MovieManagementApp.config.JwtConfig.JwtProvider;
-import com.example.x3.MovieManagementApp.dtos.SecurityDtos.JwtAuthDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserRestDto;
+import com.example.x3.MovieManagementApp.dtos.UserDtos.*;
 import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.UserService;
@@ -17,10 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +29,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtProvider jwtProvider;
-
 
     @Override
     public ResponseEntity<?> createNewUser(UserSignUpDto userSignUpDto) {
@@ -73,7 +67,6 @@ public class UserServiceImpl implements UserService {
             String lastName = userRepository.findById(userId).get().getLastName();
             String generatedToken = jwtProvider.generateToken(authentication);
 
-//            String jwt = String.format("%s:%s:%s",generatedToken, displayName, userId);
             UserRestDto userRest = UserRestDto.builder()
                     .id(userId)
                     .displayName(displayName)
@@ -85,15 +78,75 @@ public class UserServiceImpl implements UserService {
                     .expiresIn(86400)
                     .build();
 
-
-
-
             return new ResponseEntity<>(userRest, HttpStatus.OK);
         }
-
-
         return new ResponseEntity<>("Invalid credentials", HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public ResponseEntity<?> updateBasicInfo(UserBasicUpdateRequestDto userBasicUpdateRequestDto, Long id) {
 
+        if (id != null && userRepository.existsById(id)){
+
+            Long requestUserId = id;
+            String requestUserEmail = userBasicUpdateRequestDto.getEmail();
+            String requestUserDisplayName = userBasicUpdateRequestDto.getDisplayName();
+            String requestUserFirstName = userBasicUpdateRequestDto.getFirstName();
+            String requestUserLastName = userBasicUpdateRequestDto.getLastName();
+
+            Optional<User> userDB = userRepository.findById(requestUserId);
+            User updatedUser = new User();
+            updatedUser.setId(id);
+            updatedUser.setPassword(userDB.get().getPassword());
+
+            if(userRepository.existsByEmail(requestUserEmail) && userRepository.findByEmail(requestUserEmail).get().getId() != id){
+                throw new IllegalArgumentException("This email address already has an account with us!");
+            } else {
+                updatedUser.setEmail(requestUserEmail);
+            }
+
+            if(userRepository.existsByDisplayName(requestUserDisplayName) && userRepository.findByDisplayName(requestUserDisplayName).get().getId() != id){
+                throw new IllegalArgumentException("This display name is already taken");
+            } else {
+                updatedUser.setDisplayName(requestUserDisplayName);
+            }
+
+            updatedUser.setFirstName(requestUserFirstName);
+            updatedUser.setLastName(requestUserLastName);
+
+            userRepository.save(updatedUser);
+
+            UserUpdateResponseDto userUpdateResponseDto = UserUpdateResponseDto.builder()
+                                                        .displayName(updatedUser.getDisplayName())
+                                                        .email(updatedUser.getEmail())
+                                                        .firstName(updatedUser.getFirstName())
+                                                        .lastName(updatedUser.getLastName())
+                                                        .updateMessage("User details successfully updated")
+                                                        .build();
+
+            return new ResponseEntity<>(userUpdateResponseDto, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> updateUserPassword(Long id, UpdateUserPasswordDto updateUserPasswordDto) {
+        if (id != null && userRepository.existsById(id)){
+            Optional<User> userOptional = userRepository.findById(id);
+            User updatedUser = new User();
+            if (userOptional.isPresent()){
+                User user = userOptional.get();
+                if (passwordEncoder.matches(updateUserPasswordDto.getOldPassword(), userOptional.get().getPassword())){
+                    updatedUser.setId(id);
+                    updatedUser.setEmail(user.getEmail());
+                    updatedUser.setDisplayName(user.getDisplayName());
+                    updatedUser.setLastName(user.getLastName());
+                    updatedUser.setFirstName(user.getFirstName());
+                    updatedUser.setPassword(passwordEncoder.encode(updateUserPasswordDto.getNewPassword()));
+                    userRepository.save(updatedUser);
+                }
+            }
+            return new ResponseEntity<>("Password Updated", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,20 +1,15 @@
 package com.example.x3.MovieManagementApp.controllers;
 
-
-import com.example.x3.MovieManagementApp.dtos.SecurityDtos.JwtAuthDto;
+import com.example.x3.MovieManagementApp.dtos.UserDtos.UpdateUserPasswordDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
+import com.example.x3.MovieManagementApp.dtos.UserDtos.UserBasicUpdateRequestDto;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -40,6 +35,16 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody UserLoginDto userLoginDto){
         return userService.loginUser(userLoginDto);
+    }
+
+    @PutMapping("user/{id}")
+    public ResponseEntity<?> updateBasicUserInfo(@PathVariable Long id, @RequestBody UserBasicUpdateRequestDto userBasicUpdateRequestDto){
+        return userService.updateBasicInfo(userBasicUpdateRequestDto, id);
+    }
+
+    @PutMapping("password/{id}")
+    public ResponseEntity<?> updateUserPassword(@PathVariable Long id, @RequestBody UpdateUserPasswordDto updateUserPasswordDto){
+        return userService.updateUserPassword(id, updateUserPasswordDto);
     }
 
 }

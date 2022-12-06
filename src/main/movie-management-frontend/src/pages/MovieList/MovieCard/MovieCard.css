@@ -6,3 +6,20 @@
     flex-direction: row;
     margin-bottom: 5%;
 }
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.poster {
+    box-shadow: 0 10px 6px -6px #777;
+    min-width: 14vw;
+    min-height: 35vh;
+    max-height: 35vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
