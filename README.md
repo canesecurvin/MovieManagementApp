@@ -51,9 +51,7 @@ Just run the following command at the root of your project and answer questions:
 mvn install
 ```
 
-Dont forget:
-
-`application.properties file to src/main/resources directory`
+Add `application.properties` file to `src/main/resources directory`
 
 Your `application.properties` should have these properties:
 ```
@@ -71,6 +69,17 @@ spring.jpa.show-sql=
 sec.jwt-secret=
 sec.jwt-expiration-milliseconds=
 ```
+## Documentation
+
+Access Swagger Ui API Documentation at `{host}:{port}/swagger-ui/`
+<img src="src/main/resources/assets/swagger-ui.png" width="400" height="400"/></a>
+
+### Documentation Usage
+
+1. Create user at the `user-controller -> register API` endpoint.
+2. Login with <b>newly created</b> `email` and `password` at the `user-controller -> login API`. You should get a JWT token.
+3. Click `Authorize` button above `genre-controller` and enter JWT from login response.
+4. You should then be able to test `genre`, `movie`, `movie-comments` and `rating APIs` with JWT from login response.
 
 ## Code Contributors
 
@@ -98,6 +107,7 @@ sec.jwt-expiration-milliseconds=
 
 👤 **NATALIIA BORISENKO**
 
+- Twitter: [@NataliiaBor1](https://twitter.com/NataliiaBor1)
 - Github: [@NataliiaBor1](https://github.com/NataliiaBor1)
 
 ## Show your support
