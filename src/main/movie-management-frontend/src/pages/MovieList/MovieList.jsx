@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import MovieCardJsx from "./MovieCard/MovieCard.jsx";
 import MovieService from "../../services/MovieService.js";
 import GenreService from "../../services/GenreService.js";
+import Placeholder from 'react-bootstrap/Placeholder';
 import './MovieList.css';
 
 
@@ -14,9 +15,11 @@ function MovieListJsx(){
     const [genres, setGenres] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState("");
     const [genreChanged, setGenreSaved] = useState(false);
+    const [loading, setLoading] = useState(true);
     useEffect(()=>{
         const getMovies = ()=> {
             MovieService.getAllMovies().then(res => {
+                setLoading(false);
                 setMoviesList(()=> ({
                     movies: [...res.data]
                 }));
@@ -33,8 +36,10 @@ function MovieListJsx(){
         getGenres();
     }, [])
     const renderMoviesByGenre = (genreName) => {
+        setLoading(true);
         if (genreName === ""){
             MovieService.getAllMovies().then(res => {
+                setLoading(false);
                 setMoviesList(()=> ({
                     movies: [...res.data]
                 }));
@@ -48,6 +53,7 @@ function MovieListJsx(){
             });
         } 
         MovieService.getAllMoviesByGenre(genreName).then(res => {
+            setLoading(false);
             setMoviesList(()=> ({
                 movies: [...res.data]
             }));
@@ -74,15 +80,27 @@ function MovieListJsx(){
                 {genreChanged ? (<div className="genre-success-message"><p>Genre Changed</p></div>) : (<></>)}
             </div>
             {selectedGenre!=""?(<><h3 className="genre-name">{selectedGenre}</h3></>):(<></>)}
-            <div className="movie-list">
-                {moviesList.movies.map(function(mov, i){
+            {loading?(<div className="movie-list">
+                {[...Array(15)].map((i)=> {
                     return (
-                        <div key={i} className="movie-card">
-                            <MovieCardJsx key={i} {...mov}/>
-                        </div>
-                    );
+                    <div key={i} className="movie-card" style={{width: '25%', height: '10%', margin: '2.5%',  display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Placeholder className="poster" />
+                        <Placeholder bg="secondary" style={{marginTop: '1.5%', width: '25%', height: '10%'}}/>
+                        <Placeholder bg="secondary" style={{marginTop: '1.5%', width: '25%', height: '10%'}}/>
+                        <Placeholder.Button style={{marginTop: '1.5%', width: '30%', height: '5%'}}/>
+                    </div>)
                 })}
-            </div>
+            </div>):(<>
+                <div className="movie-list">
+                    {moviesList.movies.map(function(mov, i){
+                        return (
+                            <div key={i} className="movie-card">
+                                <MovieCardJsx key={i} {...mov}/>
+                            </div>
+                        );
+                    })}
+                </div>
+            </>)}
         </div>
     );
 }
