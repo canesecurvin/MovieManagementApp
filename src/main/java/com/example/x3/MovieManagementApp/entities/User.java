@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,16 +25,16 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false, name = "email", length = 80)
     private String email;
 
-    @Column (nullable = false, name = "password", length = 200)
+    @Column(nullable = false, name = "password", length = 200)
     private String password;
 
-    @Column (unique = true, nullable = false, name = "display_name", length = 15)
+    @Column(unique = true, nullable = false, name = "display_name", length = 15)
     private String displayName;
 
-    @Column (name = "first_name", length = 20)
+    @Column(name = "first_name", length = 20)
     private String firstName;
 
-    @Column (name = "last_name", length = 20)
+    @Column(name = "last_name", length = 20)
     private String lastName;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -49,12 +48,30 @@ public class User implements Serializable {
     private Set<Ratings> ratings = new HashSet<>();
 
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "user_movie_favorites",
+            joinColumns = {
+                    @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)}
+    )
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<Movies> movieFavorites = new HashSet<>();
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_movie_favorites",
-//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id")
-//    )
-//    private List<Movies> favoriteMovies;
+    @ManyToOne
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<UserMovieFavorites> userMovieFavorites = new HashSet<>();
+
+
+    public void addFavorite(Movies movieFav) {  // user.addFavorite
+        if (movieFavorites == null) {
+            movieFavorites = new HashSet<>();
+        }
+        movieFavorites.add(movieFav);
+    }
+
+
 }

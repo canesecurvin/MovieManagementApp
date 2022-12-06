@@ -1,19 +1,13 @@
 package com.example.x3.MovieManagementApp.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-
-
-
 
 @Entity
 @Table(name = "movies")
@@ -23,7 +17,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Movies {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +55,11 @@ public class Movies {
     @JsonManagedReference
     @ToString.Exclude
     private Set<MovieComments> movieComments = new HashSet<>();
+
+    @ManyToMany(mappedBy = "movieFavorites", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonBackReference
+    @ToString.Exclude
+    private Set<User> users = new HashSet<>();
 
     public void addGenre(Genres genre) {
         if (genres == null) {
