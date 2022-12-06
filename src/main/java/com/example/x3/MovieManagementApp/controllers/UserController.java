@@ -1,16 +1,17 @@
 package com.example.x3.MovieManagementApp.controllers;
 
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UpdateUserPasswordDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserLoginDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserSignUpDto;
-import com.example.x3.MovieManagementApp.dtos.UserDtos.UserBasicUpdateRequestDto;
+import com.example.x3.MovieManagementApp.dtos.UserDtos.*;
+import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @Api(value = "User controller endpoints allow for user registration and login")
@@ -45,6 +46,16 @@ public class UserController {
     @PutMapping("password/{id}")
     public ResponseEntity<?> updateUserPassword(@PathVariable Long id, @RequestBody UpdateUserPasswordDto updateUserPasswordDto){
         return userService.updateUserPassword(id, updateUserPasswordDto);
+    }
+
+    @PutMapping("/favorites")
+    public String addFavoriteMovieToUser(@RequestBody UserMovieFavoritesAddDto userMovieFavoritesAddDto) {
+        return userService.addFavoriteMovieToUser(userMovieFavoritesAddDto);
+    }
+
+    @DeleteMapping("/")
+    public String deleteMovieFromUserFavorites(@RequestBody UserMovieFavoritesRemoveDto userMovieFavoritesRemoveDto) {
+        return userService.deleteMovieFromUserFavorites(userMovieFavoritesRemoveDto);
     }
 
 }

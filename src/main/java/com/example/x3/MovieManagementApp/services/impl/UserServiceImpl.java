@@ -3,6 +3,7 @@ package com.example.x3.MovieManagementApp.services.impl;
 import com.example.x3.MovieManagementApp.config.JwtConfig.JwtProvider;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.*;
 import com.example.x3.MovieManagementApp.entities.User;
+import com.example.x3.MovieManagementApp.repositories.MovieRepository;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +23,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -148,5 +154,64 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>("Password Updated", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    @Transactional
+    public String addFavoriteMovieToUser(UserMovieFavoritesAddDto userMovieFavoritesAddDto) {
+        if (userMovieFavoritesAddDto.getMovieFavoritesId().isEmpty()) {
+            return "No movies found. Nothing can be added";
+        }
+
+        Optional<User> tempUser = userRepository.findById(userMovieFavoritesAddDto.getUserId());
+
+        if (tempUser.isEmpty()) {
+            return "This user is not found: userId " + userMovieFavoritesAddDto.getUserId();
+        }
+
+        User userToAddFavorite = tempUser.get();
+
+        for (long movieId : userMovieFavoritesAddDto.getMovieFavoritesId()) {
+            if (movieRepository.findById(movieId).isPresent()) {
+                userToAddFavorite.addFavorite(movieRepository.findById(movieId).get());
+            }
+            else {
+                return "Can not be added like favorite because this movie does not exist: movieId " + movieId;
+            }
+        }
+
+        userRepository.save(userToAddFavorite);
+
+        return "Movie(s) have been added to favorite list";
+    }
+
+    @Override
+    @Transactional
+    public String deleteMovieFromUserFavorites(UserMovieFavoritesRemoveDto userMovieFavoritesRemoveDto) {
+
+        if (userMovieFavoritesRemoveDto.getMovieFavoritesId().isEmpty()) {
+            return "No movies found. Nothing can be deleted";
+        }
+
+        Optional<User> tempUser = userRepository.findById(userMovieFavoritesRemoveDto.getUserId());
+
+        if (tempUser.isEmpty()) {
+            return "This user is not found: userId " + userMovieFavoritesRemoveDto.getUserId();
+        }
+
+        User userToRemoveFavorite = tempUser.get();
+
+        for (long movieId : userMovieFavoritesRemoveDto.getMovieFavoritesId()) {
+            if (movieRepository.findById(movieId).isPresent()) {
+                userToRemoveFavorite.getMovieFavorites().remove(movieRepository.findById(movieId).get());
+            }
+            else {
+                return "Can not be deleted from favorites because this movie does not exist: movieId " + movieId;
+            }
+        }
+
+        userRepository.save(userToRemoveFavorite);
+
+        return "Movie(s) have been deleted from favorite list";
     }
 }
