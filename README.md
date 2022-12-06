@@ -71,7 +71,7 @@ sec.jwt-expiration-milliseconds=
 ```
 ## Documentation
 
-Access Swagger Ui API Documentation at `{host}:{port}/swagger-ui/`
+Access Swagger UI API Documentation at `{host}:{port}/swagger-ui/`
 <img src="src/main/resources/assets/swagger-ui.png" width="700" height="400"/></a>
 
 #### Documentation Usage
