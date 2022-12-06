@@ -7,6 +7,8 @@ import MovieRatingsService from "../../services/MovieRatingsService.js";
 import RatingModalJsx from "./RatingModal.jsx";
 import RatingStarsJsx from '../../components/RatingStars.jsx';
 import Button from 'react-bootstrap/Button';
+import { HiHandThumbUp, HiHandThumbDown,
+    HiOutlineHandThumbUp, HiOutlineHandThumbDown } from "react-icons/hi2";
 import './Movie.css'
 
 function MovieJsx(props){
@@ -19,7 +21,8 @@ function MovieJsx(props){
         movie: {}
     })
     const [rating, setRating] = useState(values.movie.rating);
-
+    const [favorited, setFavorited] = useState(true);
+    const [disliked, setDisliked] = useState(false);
     const [show, setShow] = useState(false);
     const handleClose = () => {
         document.getElementById("rating-button").style.display = 'none';
@@ -95,6 +98,14 @@ function MovieJsx(props){
                             <p><b>Genres: </b>{renderGenres()}</p>
                         </>
                     ):(<></>)}
+                    <div className="favorite">
+                        <div className='thumbs-down'>
+                            {disliked?(<HiHandThumbDown />):(<HiOutlineHandThumbDown />)}
+                        </div>
+                        <div className='thumbs-up'>
+                            {favorited?(<HiHandThumbUp />):(<HiOutlineHandThumbUp/>)}
+                        </div>
+                    </div>
                     {!rating ? (<Button variant="primary" id="rating-button" onClick={handleShow}>Rate</Button>):(<></>)}
                     {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
                     <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>

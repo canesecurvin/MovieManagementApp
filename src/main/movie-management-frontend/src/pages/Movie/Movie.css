@@ -52,3 +52,10 @@ h1 {
 .info {
     margin-left: 2.5%;
 }
+
+.favorite {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+}
