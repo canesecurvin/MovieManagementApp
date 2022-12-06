@@ -23,6 +23,22 @@ class UserService{
         }
         return axios.put(baseUrl+`password/${userId}`, passwords, { headers: authHeader() })
     }
+
+    addUserFavorite(userId, movieId){
+        const favorites = {
+            userId: userId,
+            movies: [movieId]
+        }
+        return axios.put(baseUrl+'favorites', favorites, { headers: authHeader() });
+    }
+
+    deleteUserFavorite(userId, movieId){
+        const favorites = {
+            userId: userId,
+            movies: [movieId]
+        }
+        return axios.delete(baseUrl, favorites, { headers: authHeader() });
+    }
 }
 
 export default new UserService();
