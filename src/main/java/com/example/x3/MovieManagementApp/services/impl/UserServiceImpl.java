@@ -2,6 +2,8 @@ package com.example.x3.MovieManagementApp.services.impl;
 
 import com.example.x3.MovieManagementApp.config.JwtConfig.JwtProvider;
 import com.example.x3.MovieManagementApp.dtos.UserDtos.*;
+import com.example.x3.MovieManagementApp.entities.Genres;
+import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.entities.User;
 import com.example.x3.MovieManagementApp.repositories.MovieRepository;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
@@ -17,7 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -71,6 +76,7 @@ public class UserServiceImpl implements UserService {
             String email = userRepository.findById(userId).get().getEmail();
             String firstName = userRepository.findById(userId).get().getFirstName();
             String lastName = userRepository.findById(userId).get().getLastName();
+            Set<Movies> movieFavorites = userRepository.findById(userId).get().getMovieFavorites();
             String generatedToken = jwtProvider.generateToken(authentication);
 
             UserRestDto userRest = UserRestDto.builder()
@@ -79,6 +85,7 @@ public class UserServiceImpl implements UserService {
                     .email(email)
                     .firstName(firstName)
                     .lastName(lastName)
+                    .movieFavorites(movieFavorites)
                     .accessToken(generatedToken)
                     .tokenType("Bearer")
                     .expiresIn(86400)
