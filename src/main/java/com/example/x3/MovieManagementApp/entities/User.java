@@ -60,18 +60,16 @@ public class User implements Serializable {
     @ToString.Exclude
     private Set<Movies> movieFavorites = new HashSet<>();
 
-    @ManyToOne
-    @JsonManagedReference
-    @ToString.Exclude
-    private Set<UserMovieFavorites> userMovieFavorites = new HashSet<>();
+//    @ManyToOne  //Commented totally for now but we might be will need it for future expansion
+//    @JsonManagedReference
+//    @ToString.Exclude
+//    private Set<UserMovieFavorites> userMovieFavorites = new HashSet<>();
 
 
-    public void addFavorite(Movies movieFav) {  // user.addFavorite
+    public void addFavorite(Movies movieFav) {
         if (movieFavorites == null) {
             movieFavorites = new HashSet<>();
         }
         movieFavorites.add(movieFav);
     }
-
-
 }
