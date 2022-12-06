@@ -3,6 +3,7 @@ package com.example.x3.MovieManagementApp.controllers;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreRemoveDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.repositories.UserRepository;
 import com.example.x3.MovieManagementApp.services.*;
@@ -222,6 +223,21 @@ class MovieControllerTest {
                 .content(objectMapper.writeValueAsString(tempMovieGenreAddDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is("Genre(s) have been added.")));
+    }
+
+    @Test
+    void removeMovieGenreTest() throws Exception{
+        MovieGenreRemoveDto tempMovieGenreRemoveDto = MovieGenreRemoveDto.builder()
+                .movieId(1)
+                .build();
+        when(movieService.removeGenreFromMovie(any(MovieGenreRemoveDto.class)))
+                .thenReturn("Genre(s) have been removed.");
+
+        this.mockMvc.perform(delete("/v1/movies/genre")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(tempMovieGenreRemoveDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is("Genre(s) have been removed.")));
     }
 
     @Test

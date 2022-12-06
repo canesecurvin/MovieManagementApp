@@ -3,6 +3,7 @@ package com.example.x3.MovieManagementApp.controllers;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreRemoveDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import io.swagger.annotations.Api;
@@ -72,6 +73,12 @@ public class MovieController {
     @ApiOperation(value = "Add genre to Movie by its Movie ID")
     public String addMovieGenre(@RequestBody MovieGenreAddDto movieGenreAddDto) {
         return movieService.addGenreToMovie(movieGenreAddDto);
+    }
+
+    @DeleteMapping("/genre")
+    @ApiOperation(value = "Remove genre from Movie by its Movie ID")
+    public String removeMovieGenre(@RequestBody MovieGenreRemoveDto movieGenreRemoveDto) {
+        return movieService.removeGenreFromMovie(movieGenreRemoveDto);
     }
 
     @DeleteMapping("/{movieId}")
