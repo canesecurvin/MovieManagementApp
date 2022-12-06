@@ -65,17 +65,36 @@ function MovieJsx(props){
             )
         }
     }
-
+    const renderGenres = () => {
+        if (values.movie.genres!=undefined) {
+            return (
+                <>
+                    {values.movie.genres.map(function(genre, i){
+                        return (
+                        <><span>
+                            {genre.genre}
+                            {i!=values.movie.genres.length-1?(<>, </>):(<></>)}
+                            </span></>)
+                    })}
+                </>
+            )
+        }else return (<></>)
+    }
     return (
         <>
             <h1><b>{values.movie.movieName}</b></h1>
             <div className="movie-info">
                 <div className="poster" id="poster"></div>
-                <div className="/info">
+                <div className="info">
                     {renderStars()}
                     {newRatingSaved ? (<><RatingStarsJsx rating={newRating}/></>) : (<></>)}
                     <p><b>Released: </b>{values.movie.releaseYear}</p>
                     <p><b>Duration: </b>{values.movie.movieLength} Minutes</p>
+                    {values.movie.genres!=undefined ? 
+                    (   <>
+                            <p><b>Genres: </b>{renderGenres()}</p>
+                        </>
+                    ):(<></>)}
                     {!rating ? (<Button variant="primary" id="rating-button" onClick={handleShow}>Rate</Button>):(<></>)}
                     {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
                     <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>

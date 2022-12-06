@@ -9,7 +9,7 @@ function MovieList(){
             <NavigationJsx />
             <div className="mov-container">
                 <h1>Movies List</h1>
-                <div class="movie-container">
+                <div class="movie-list-container">
                     <MovieListJsx/>
                 </div>
             </div>

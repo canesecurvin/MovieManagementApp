@@ -9,10 +9,9 @@ function AddCommentJsx(props){
 
     return (
         <div className="add-container">
-            <h3>Add Comment</h3>
             <Form className="form" onSubmit={handleFormSubmit}>
                 <Form.Group className="mb-3 form-field" controlId="comment" onChange={handleFieldChange}>
-                    <Form.Control required type="text" placeholder="This movie was great!"/>
+                    <Form.Control required type="text" placeholder="Add new comment here..."/>
                 </Form.Group>
                 <Button className="submit-button" variant="primary" type="submit">Submit</Button>
             </Form>

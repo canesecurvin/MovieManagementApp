@@ -22,13 +22,11 @@ function MovieCardJsx(props){
         randomizePoster(props.id);
     }, [])
     return (
-        <div>
-            <div className="movie">
-                <div className="poster" id={`movie-${props.id}`}></div>
-                <RatingStarsJsx rating={props.rating}/>
-                <p>{props.movieName}</p>
-                <Button variant="primary" onClick={() => { showSingleMovie()}}>Movie Details</Button>
-            </div>
+        <div className="movie">
+            <div className="poster" id={`movie-${props.id}`}></div>
+            <RatingStarsJsx rating={props.rating}/>
+            <p>{props.movieName}</p>
+            <Button variant="primary" onClick={() => { showSingleMovie()}}>Movie Details</Button>
         </div>
     );
 }
