@@ -3,6 +3,7 @@ package com.example.x3.MovieManagementApp.services.impl;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreRemoveDto;
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.repositories.GenreRepository;
@@ -16,10 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -263,6 +261,66 @@ class MovieServiceImplTest {
         String result = movieServiceImpl.addGenreToMovie(tempMovieGenreAddDto);
 
         assertEquals("Attempted to add genreId: 1 that did not exist.", result);
+    }
+
+    @Test
+    void removeGenreFromMovieTest() {
+        ArrayList<Long> genreIdList = new ArrayList<>();
+        genreIdList.add(1L);
+        MovieGenreRemoveDto tempMovieGenreRemoveDto = MovieGenreRemoveDto.builder()
+                .movieId(1L)
+                .genres(genreIdList)
+                .build();
+        Genres tempGenre = Genres.builder()
+                    .id(1L)
+                    .genre("Action")
+                    .build();
+        when(genreRepository.findById(anyLong())).thenReturn(Optional.of(tempGenre));
+        when(movieRepository.findById(anyLong())).thenReturn(Optional.of(movieThree));
+
+        String result = movieServiceImpl.removeGenreFromMovie(tempMovieGenreRemoveDto);
+
+        assertEquals("Genre(s) have been removed.", result);
+        assertEquals(0, movieThree.getGenres().size());
+    }
+
+    @Test
+    void removeGenreNotFoundInMovieFromMovieTest() {
+        ArrayList<Long> genreIdList = new ArrayList<>();
+        genreIdList.add(2L);
+        MovieGenreRemoveDto tempMovieGenreRemoveDto = MovieGenreRemoveDto.builder()
+                .movieId(1L)
+                .genres(genreIdList)
+                .build();
+        Genres tempGenre = Genres.builder()
+                .id(2L)
+                .genre("Adventure")
+                .build();
+        when(genreRepository.findById(anyLong())).thenReturn(Optional.of(tempGenre));
+        when(movieRepository.findById(anyLong())).thenReturn(Optional.of(movieThree));
+
+        String result = movieServiceImpl.removeGenreFromMovie(tempMovieGenreRemoveDto);
+
+        assertEquals("Attempted to remove genreId: 2 that movie does not contain.", result);
+        assertEquals(1, movieThree.getGenres().size());
+    }
+
+    @Test
+    void removeGenreNotFoundFromMovieTest() {
+        ArrayList<Long> genreIdList = new ArrayList<>();
+        genreIdList.add(2L);
+        MovieGenreRemoveDto tempMovieGenreRemoveDto = MovieGenreRemoveDto.builder()
+                .movieId(2L)
+                .genres(genreIdList)
+                .build();
+
+        when(genreRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(movieRepository.findById(anyLong())).thenReturn(Optional.of(movieThree));
+
+        String result = movieServiceImpl.removeGenreFromMovie(tempMovieGenreRemoveDto);
+
+        assertEquals("Attempted to remove genreId: 2 that did not exist.", result);
+        assertEquals(1, movieThree.getGenres().size());
     }
 
     @Test

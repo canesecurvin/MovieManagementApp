@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -28,4 +29,17 @@ public class Genres {
     @JsonBackReference
     @ToString.Exclude
     private Set<Movies> movies = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Genres)) return false;
+        Genres genres = (Genres) o;
+        return id.equals(genres.id) && genre.equals(genres.genre) && Objects.equals(movies, genres.movies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, genre, movies);
+    }
 }
