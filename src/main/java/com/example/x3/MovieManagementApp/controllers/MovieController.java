@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,9 +59,9 @@ public class MovieController {
     }
 
     @ApiOperation(value = "Get pageable list of all Movies")
-    @GetMapping(value = {"/{pageNum}"})
-    public List<Movies> getAllMovies(@PathVariable int pageNum) {
-        return movieService.findAll(pageNum).getContent();
+    @GetMapping(value = {"/pageable"})
+    public Page<Movies> getAllMoviesPageable(Pageable pageable) {
+        return movieService.findAll(pageable);
     }
 
     @ApiOperation(value = "Add a Movie")

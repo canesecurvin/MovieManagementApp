@@ -179,12 +179,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movies> findAll(int pageNum) {
-        int pageSize = 3;
+    public Page<Movies> findAll(Pageable pageable) {
+//        int pageSize = 3;
+//
+//        Pageable sortedByName = PageRequest.of(pageNum - 1, pageSize, Sort.by(Sort.Direction.ASC, "movieName"));
 
-        Pageable sortedByName = PageRequest.of(pageNum - 1, pageSize, Sort.by(Sort.Direction.ASC, "movieName"));
-
-        return movieRepository.findAll(sortedByName);
+        return movieRepository.findAll(pageable);
     }
 
 }

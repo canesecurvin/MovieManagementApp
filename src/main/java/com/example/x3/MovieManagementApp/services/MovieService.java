@@ -6,6 +6,7 @@ import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreRemoveDto;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface MovieService {
 
     List<Movies> findAll(Sort sort);
 
-    Page<Movies> findAll(int pageNum);
+    Page<Movies> findAll(Pageable pageable);
 
     Optional<List<Movies>> save(MovieAddDto movieAddDto);
 
