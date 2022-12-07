@@ -5,6 +5,7 @@ import MovieCommentsService from "../../../services/MovieCommentsService";
 import ActivityCardJsx from "./ActivityCard";
 import { RiSubtractLine } from "react-icons/ri";
 import AuthService from "../../../services/AuthService";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import './Tabs.css';
 
 function RecentActivityJsx(){
@@ -12,13 +13,18 @@ function RecentActivityJsx(){
     const [movieActivity, setMovieActivity] = useState({
         activity: []
     });
+    const [loading, setLoading] = useState(true);
     function getActivity(){
         let reviews = [];
         MovieRatingsService.getMovieRatingByUser(currentUser.id).then(res => {
+            if (res.data.length==0){
+                setLoading(false);
+            }
             res.data.forEach(mov => {
                 let curReview = {};
                 MovieService.getMovie(mov.ratingsPK.movieId).then(res => {
                     MovieCommentsService.getMovieCommentByMovieAndUser(mov.ratingsPK.movieId,currentUser.id).then(res2 => {
+                        setLoading(false);
                         curReview.id = mov.ratingsPK.movieId;
                         curReview.rating = mov.rating;
                         curReview.review = mov.review;
@@ -40,7 +46,10 @@ function RecentActivityJsx(){
     }
     useEffect(()=>{
         getActivity();
-    },[])
+        if(movieActivity.activity.length>0){
+            setLoading(false);
+        }
+    },[loading])
     const activityMap = movieActivity.activity.map( function(act){
         const comms = act.comments.map(function(comment){
             return (
@@ -59,8 +68,9 @@ function RecentActivityJsx(){
     });
     return (
         <div className="container">
-            {activityMap}
-            {activityMap.length==0?(<><h3>No Recent Activity Found</h3></>):(<></>)}
+            {loading?(<><AiOutlineLoading3Quarters className="loading"/></>):(<>
+                {movieActivity.activity.length>0?(activityMap):(<><h3>No Recent Activity Found</h3></>)}
+            </>)}
         </div>
     );
 }

@@ -3,6 +3,7 @@ package com.example.x3.MovieManagementApp.services.impl;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieAddDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieDto;
 import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreAddDto;
+import com.example.x3.MovieManagementApp.dtos.MovieDtos.MovieGenreRemoveDto;
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.repositories.GenreRepository;
@@ -13,10 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -125,6 +123,37 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.save(updateMovie);
 
         return "Genre(s) have been added.";
+    }
+
+    @Override
+    @Transactional
+    public String removeGenreFromMovie(MovieGenreRemoveDto movieGenreRemoveDto) {
+        if (movieGenreRemoveDto.getGenres().isEmpty()) return "No genres have been removed.";
+
+        Optional<Movies> tempMovie = movieRepository.findById(movieGenreRemoveDto.getMovieId());
+
+        if (tempMovie.isEmpty()) return "Cannot find movieId: " + movieGenreRemoveDto.getMovieId();
+        Movies updateMovie = tempMovie.get();
+        Set<Genres> updateList = updateMovie.getGenres();
+        Optional<Genres> tempGenre = Optional.empty();
+
+        for (long genreId : movieGenreRemoveDto.getGenres()) {
+            tempGenre = genreRepository.findById(genreId);
+            if (tempGenre.isPresent()) {
+                if (updateList.contains(tempGenre.get())) {
+                    updateList.remove(tempGenre.get());
+                } else {
+                    return "Attempted to remove genreId: " + genreId + " that movie does not contain.";
+                }
+            } else {
+                return "Attempted to remove genreId: " + genreId + " that did not exist.";
+            }
+        }
+
+        updateMovie.setGenres(updateList);
+
+        movieRepository.save(updateMovie);
+        return "Genre(s) have been removed.";
     }
 
     @Override
