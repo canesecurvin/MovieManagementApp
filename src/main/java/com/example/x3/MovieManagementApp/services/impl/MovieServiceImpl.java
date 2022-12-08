@@ -10,6 +10,9 @@ import com.example.x3.MovieManagementApp.repositories.GenreRepository;
 import com.example.x3.MovieManagementApp.repositories.MovieRepository;
 import com.example.x3.MovieManagementApp.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -171,7 +174,17 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movies> findAll(Sort sort) {
+
         return movieRepository.findAll(sort);
+    }
+
+    @Override
+    public Page<Movies> findAll(Pageable pageable) {
+//        int pageSize = 3;
+//
+//        Pageable sortedByName = PageRequest.of(pageNum - 1, pageSize, Sort.by(Sort.Direction.ASC, "movieName"));
+
+        return movieRepository.findAll(pageable);
     }
 
 }
