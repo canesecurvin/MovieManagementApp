@@ -8,10 +8,8 @@ class MovieService{
         return axios.get(baseUrl+`id/${movieId}`, { headers: authHeader() });
     }
 
-    getAllMovies(){
-        try {
-            return axios.get(baseUrl, { headers: authHeader() });  
-        }catch(e){console.log(e)}
+    getAllMovies(page, size, sortedBy){
+        return axios.get(baseUrl + `pageable?page=${page}&size=${size}&sort=${sortedBy}`, { headers: authHeader() }); 
     }
 
     getAllMoviesByGenre(genreName) {
