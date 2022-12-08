@@ -6,7 +6,8 @@ import SettingsJsx from './Tabs/Settings';
 import UserMovieFavoritesJsx from './Tabs/UserMovieFavorites';
 import './Profile.css';
 
-function ProfileJsx() {
+function ProfileJsx(props) {
+  const {updateNavigate} = props;
   return (
     <div className="signup">
         <Tabs defaultActiveKey="recent-activity"
@@ -19,7 +20,7 @@ function ProfileJsx() {
                 <UserMovieFavoritesJsx />
             </Tab>
             <Tab eventKey="settings" title="Settings">
-                <SettingsJsx />
+                <SettingsJsx updateNavigate={updateNavigate}/>
             </Tab>
         </Tabs>
     </div>

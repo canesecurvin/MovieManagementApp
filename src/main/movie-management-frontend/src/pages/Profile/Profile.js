@@ -1,22 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ProfileJsx from './Profile.jsx';
 import './Profile.css';
 import AuthService from '../../services/AuthService';
 import NavigationJsx from '../../components/Navigation.jsx';
 
 function Profile() {
-  // if (AuthService.getCurrentUser() == null){
-  //   return (
-  //     <>
-  //       <h1>NOT LOGGED IN!</h1>
-  //     </>
-  //   )
-  // }
+  const [profileDisplayName, setProfileDisplayName] = useState();
+  const updateNavigate = (displayName) => {
+    setProfileDisplayName(displayName);
+  }
+  useEffect(()=>{
+  }, [profileDisplayName])
   return (
     <div>
-      <NavigationJsx />
+      <NavigationJsx displayName={profileDisplayName}/>
       <div className="profile">
-        <ProfileJsx/>
+        <ProfileJsx updateNavigate={updateNavigate}/>
       </div>
     </div>
   );
