@@ -42,9 +42,15 @@ function RatingModalJsx(props){
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Group className="mb-3 form-field" controlId="rating" onChange={handleFieldChange}>
                             <Form.Label>Rating</Form.Label>
-                            <Form.Control required type="text" placeholder="Enter number 1 through 5"/>
+                            <Form.Control as="select">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="">3</option>
+                            </Form.Control>
                         </Form.Group>
-                        <Form.Group className="mb-3 form-field" controlId="review" onChange={handleFieldChange}>
+                        <Form.Group className="mb-3 rating-form-field" controlId="review" onChange={handleFieldChange}>
                             <Form.Label>Review</Form.Label>
                             <Form.Control required type="text" placeholder="I love this movie..."/>
                         </Form.Group>

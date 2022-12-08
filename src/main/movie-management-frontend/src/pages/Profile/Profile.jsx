@@ -5,7 +5,8 @@ import RecentActivityJsx from './Tabs/RecentActivity';
 import SettingsJsx from './Tabs/Settings';
 import './Profile.css';
 
-function ProfileJsx() {
+function ProfileJsx(props) {
+  const {updateNavigate} = props;
   return (
     <div className="signup">
         <Tabs defaultActiveKey="recent-activity"
@@ -15,7 +16,7 @@ function ProfileJsx() {
                 <RecentActivityJsx />
             </Tab>
             <Tab eventKey="settings" title="Settings">
-                <SettingsJsx />
+                <SettingsJsx updateNavigate={updateNavigate}/>
             </Tab>
         </Tabs>
     </div>

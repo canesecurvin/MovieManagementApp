@@ -6,7 +6,8 @@ import AuthService from "../../../services/AuthService";
 import UserService from "../../../services/UserService";
 import './Tabs.css';
 
-function SettingsJsx(){
+function SettingsJsx(props){
+    const {updateNavigate} = props;
     const currentUser = AuthService.getCurrentUser();
     const [basicValues, setBasicValues] = useState({
         id: currentUser.id,
@@ -46,6 +47,7 @@ function SettingsJsx(){
                 setTimeout(() => {
                     setUserUpdated(false);
                 }, "3000")
+                updateNavigate(basicValues.displayName);
                 AuthService.updateCurrentUser(res.data);
             }).catch(error => {console.log(error);})
         }
