@@ -1,5 +1,7 @@
 package com.example.x3.MovieManagementApp.repositories;
 
+import com.example.x3.MovieManagementApp.entities.MovieComments;
+import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.entities.User;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
@@ -117,6 +119,46 @@ public class UserRepositoryTests {
         assertThat(userDB.get().getEmail()).isEqualTo(user.getEmail());
         assertThat(userDB.get().getDisplayName()).isEqualTo(user.getDisplayName());
         assertThat(userDB.get().getId()).isEqualTo(savedUser.getId());
+    }
+
+    @Test
+    @DisplayName("Test for update user operation")
+    void givenUserObject_whenUpdateUser_thenReturnUpdatedUser(){
+        User user = User.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("jdoe@gmail.com")
+                .displayName("jdoe")
+                .password("1234")
+                .build();
+        userRepository.save(user);
+
+        User savedUser = userRepository.findById(user.getId()).get();
+        savedUser.setEmail("fp@devfep.com");
+        savedUser.setFirstName("Felix");
+        User updatedUser = userRepository.save(savedUser);
+
+        assertThat(updatedUser.getEmail()).isEqualTo("fp@devfep.com");
+        assertThat(updatedUser.getFirstName()).isEqualTo("Felix");
+    }
+
+
+    @Test
+    @DisplayName("Test for delete user operation")
+    void givenUserObject_whenDelete_thenDeleteEmployee(){
+        User user = User.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("jdoe@gmail.com")
+                .displayName("jdoe")
+                .password("1234")
+                .build();
+        userRepository.save(user);
+
+        userRepository.delete(user);
+        Optional<User> userOptional = userRepository.findById(user.getId());
+
+        assertThat(userOptional).isEmpty();
     }
 
 }
