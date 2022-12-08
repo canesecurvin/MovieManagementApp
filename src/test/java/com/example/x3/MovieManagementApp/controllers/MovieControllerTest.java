@@ -52,6 +52,9 @@ class MovieControllerTest {
     @MockBean
     private RatingService ratingService;
 
+    @MockBean
+    private FavoritesService favoritesService;
+
     @Autowired
     private MockMvc mockMvc;
 
