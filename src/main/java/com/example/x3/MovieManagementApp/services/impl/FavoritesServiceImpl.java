@@ -35,11 +35,9 @@ public class FavoritesServiceImpl implements FavoritesService {
         if (userOptional.isPresent()){
             List<Favorites> favorites = favoritesRepository.findAllByUserId(userId);
             return favorites.stream().map(fav -> {
-                System.out.println("FAV-----" + fav.toString());
                 Optional<Movies> moviesOptional = movieRepository.findById(fav.getMovie().getId());
                 Movies movie = new Movies();
                 if (moviesOptional.isPresent()){
-                    System.out.println("OPTIONA-----" + moviesOptional.get());
                     movie = new Movies(moviesOptional.get());
                 }
                 return new FavoritesResponseDto(fav);
@@ -62,12 +60,10 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Override
     @Transactional
     public List<FavoritesResponseDto> addUserFavorite(FavoritesAddDto favoritesAddDto){
-        System.out.println(favoritesAddDto.toString());
         Optional<User> userOptional = userRepository.findById(favoritesAddDto.getUserId());
         Optional<Movies> moviesOptional = movieRepository.findById(favoritesAddDto.getMovieId());
         if (moviesOptional.isPresent()) System.out.println(moviesOptional.get().toString());
         if (userOptional.isPresent()){
-//            System.out.println(moviesOptional.get().toString());
             Favorites favorite = new Favorites(userOptional.get(), moviesOptional.get());
             favoritesRepository.save(favorite);
         }
@@ -89,8 +85,6 @@ public class FavoritesServiceImpl implements FavoritesService {
         if (userOptional.isPresent() && moviesOptional.isPresent()){
             favoritesRepository.deleteDistinctByUserAndMovie(userOptional.get(), moviesOptional.get());
         }
-        System.out.println("HITTING-----");
-//        favoritesRepository.deleteByMovieAndUser(movieId, userId);
         return this.userFavorites(userId);
     }
 

@@ -30,27 +30,16 @@ public class FavoritesController {
 
     @PostMapping("")
     public List<FavoritesResponseDto> addUserFavorite(@RequestBody FavoritesAddDto favoritesAddDto){
-        System.out.println(favoritesAddDto.getUserId());
         return favoritesService.addUserFavorite(favoritesAddDto);
     }
 
     @DeleteMapping("/{favoritesId}/user/{userId}")
     public List<FavoritesResponseDto> deleteUserFavorite(@PathVariable("userId") Long userId, @PathVariable("favoritesId") Long favoritesId){
-        try {
-            return favoritesService.deleteUserFavorite(favoritesId, userId);
-        }catch(Exception e) {
-            System.out.println(e);
-        }
-        return new ArrayList<>();
+        return favoritesService.deleteUserFavorite(favoritesId, userId);
     }
 
     @DeleteMapping("/movie/{movieId}/user/{userId}")
     public List<FavoritesResponseDto> deleteUserFavoriteByUserAndMovie(@PathVariable("userId") Long userId, @PathVariable("movieId") Long movieId){
-        try {
-            return favoritesService.deleteUserFavoriteByUserAndMovie(movieId, userId);
-        }catch(Exception e) {
-            System.out.println(e);
-        }
-        return new ArrayList<>();
+        return favoritesService.deleteUserFavoriteByUserAndMovie(movieId, userId);
     }
 }
