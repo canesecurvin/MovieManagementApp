@@ -1,11 +1,9 @@
 package com.example.x3.MovieManagementApp.repositories;
 
-import com.example.x3.MovieManagementApp.entities.MovieComments;
-import com.example.x3.MovieManagementApp.entities.Movies;
 import com.example.x3.MovieManagementApp.entities.User;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.OPTIONAL;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +17,21 @@ public class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    @DisplayName("Test for save user operation")
-    void givenUserObject_whenSave_thenReturnSavedUser(){
-        User user = User.builder()
+    private User user;
+    @BeforeEach
+    void init(){
+        user = User.builder()
                 .firstName("John")
                 .lastName("Doe")
                 .email("jdoe@gmail.com")
                 .displayName("jdoe")
                 .password("1234")
                 .build();
+    }
 
+    @Test
+    @DisplayName("Test for save user operation")
+    void givenUserObject_whenSave_thenReturnSavedUser(){
         User savedUser = userRepository.save(user);
 
         assertThat(savedUser).isNotNull();
@@ -39,13 +41,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for find all operation")
     void givenMultipleUsers_whenFindAll_thenReturnUserList(){
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .email("jdoe@gmail.com")
-                .displayName("jdoe")
-                .password("1234")
-                .build();
 
         User user2 = User.builder()
                 .firstName("Jane")
@@ -67,14 +62,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for get user by email operation")
     void givenUserEmail_whenFindByEmail_thenReturnUserObject(){
-        User user = User.builder()
-            .firstName("John")
-            .lastName("Doe")
-            .email("jdoe@gmail.com")
-            .displayName("jdoe")
-            .password("1234")
-            .build();
-
         userRepository.save(user);
         User userDB = userRepository.findByEmail(user.getEmail()).get();
 
@@ -85,14 +72,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for get user by display name operation")
     void givenUserDisplayName_whenFindByDisplayName_thenReturnUserObject(){
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .email("jdoe@gmail.com")
-                .displayName("jdoe")
-                .password("1234")
-                .build();
-
         userRepository.save(user);
         User userDB = userRepository.findByDisplayName(user.getDisplayName()).get();
 
@@ -103,14 +82,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for get user by display name or email operation")
     void givenUserDisplayNameOrEmail_whenFindByDisplayNameOrEmail_thenReturnUserObject(){
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .email("jdoe@gmail.com")
-                .displayName("jdoe")
-                .password("1234")
-                .build();
-
         User savedUser = userRepository.save(user);
 
         Optional<User> userDB = userRepository.findByDisplayNameOrEmail(user.getDisplayName(), user.getEmail());
@@ -124,13 +95,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for update user operation")
     void givenUserObject_whenUpdateUser_thenReturnUpdatedUser(){
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .email("jdoe@gmail.com")
-                .displayName("jdoe")
-                .password("1234")
-                .build();
         userRepository.save(user);
 
         User savedUser = userRepository.findById(user.getId()).get();
@@ -146,13 +110,6 @@ public class UserRepositoryTests {
     @Test
     @DisplayName("Test for delete user operation")
     void givenUserObject_whenDelete_thenDeleteUser(){
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .email("jdoe@gmail.com")
-                .displayName("jdoe")
-                .password("1234")
-                .build();
         userRepository.save(user);
 
         userRepository.delete(user);
