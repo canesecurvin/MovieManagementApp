@@ -14,12 +14,10 @@ class FavoritesService{
     }
 
     addUserFavorites(userId, movieId){
-        console.log(userId, movieId)
         const favorite = {
             userId: userId,
             movieId: Number(movieId)
         }
-        console.log(favorite)
         return axios.post(baseUrl, favorite, {headers: authHeader()});
     }
 

@@ -11,14 +11,12 @@ function UserMovieFavoritesJsx(){
     const [loading, setLoading] = useState(true);
     useEffect(()=>{
         FavoritesService.getUserFavorites(currentUser.id).then(res => {
-            console.log(res.data);
             setFavorites([...res.data]);
             setLoading(false);
         }).catch(error => {console.log(error);})
     }, [])
     const removeFromFavorites = (favId) => {
         FavoritesService.deleteUserFavorite(favId, currentUser.id).then(res => {
-            console.log(res.data);
             setFavorites([...res.data]);
         }).catch(error => {console.log(error);})
     }

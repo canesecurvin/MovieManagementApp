@@ -94,13 +94,11 @@ function MovieJsx(props){
     }
     function addToFavorites(movieId){
         FavoritesService.addUserFavorites(currentUser.id, movieId).then(res=>{
-            console.log(res.data);
             setFavorited(true);
         })
     }
     function removeFromFavorites(movieId){
         FavoritesService.deleteFavoriteByMovieIdAndUserId(movieId, currentUser.id).then(res=> {
-            console.log(res);
             setFavorited(false);
         })
     }
