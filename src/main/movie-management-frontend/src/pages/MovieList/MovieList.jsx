@@ -45,8 +45,6 @@ function MovieListJsx(){
     }, [moviesList.movies])
     const renderMoviesByGenre = (genreName) => {
         setLoading(true);
-        setMoviesList([]);
-        page = 0;
         const getMovies = () => {
             MovieService.getAllMovies(page, size, sortedBy).then(res => {
                 setLoading(false);
@@ -64,12 +62,18 @@ function MovieListJsx(){
             }); 
         }
         if (genreName === ""){
+            moviesList.length = 0;
+            console.log(moviesList);
+            page = 0;
             getMovies();
             setSelectedGenre("");
         } 
         MovieService.getAllMoviesByGenre(genreName).then(res => {
             setLoading(false);
-            setMoviesList([...res.data]);
+            moviesList.length = 0;
+            res.data.forEach(g => {
+                moviesList.push(g);
+            })
             setSelectedGenre(genreName);
             setGenreSaved(true);
             setTimeout(() => {
