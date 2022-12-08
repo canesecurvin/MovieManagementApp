@@ -64,7 +64,7 @@ public class UserRepositoryTests {
 
     @Test
     @DisplayName("Test for get user by email operation")
-    void givenUserObject_whenFindByEmail_thenReturnUserEmployeeObject(){
+    void givenUserEmail_whenFindByEmail_thenReturnUserObject(){
         User user = User.builder()
             .firstName("John")
             .lastName("Doe")
@@ -82,7 +82,7 @@ public class UserRepositoryTests {
 
     @Test
     @DisplayName("Test for get user by display name operation")
-    void givenUserObject_whenFindByDisplayName_thenReturnUserEmployeeObject(){
+    void givenUserDisplayName_whenFindByDisplayName_thenReturnUserObject(){
         User user = User.builder()
                 .firstName("John")
                 .lastName("Doe")
@@ -100,7 +100,7 @@ public class UserRepositoryTests {
 
     @Test
     @DisplayName("Test for get user by display name or email operation")
-    void givenUserObject_whenFindByDisplayNameOrEmail_thenReturnUserEmployeeObject(){
+    void givenUserDisplayNameOrEmail_whenFindByDisplayNameOrEmail_thenReturnUserObject(){
         User user = User.builder()
                 .firstName("John")
                 .lastName("Doe")
@@ -118,4 +118,5 @@ public class UserRepositoryTests {
         assertThat(userDB.get().getDisplayName()).isEqualTo(user.getDisplayName());
         assertThat(userDB.get().getId()).isEqualTo(savedUser.getId());
     }
+
 }
