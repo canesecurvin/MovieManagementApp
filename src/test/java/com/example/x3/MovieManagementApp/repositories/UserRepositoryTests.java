@@ -145,7 +145,7 @@ public class UserRepositoryTests {
 
     @Test
     @DisplayName("Test for delete user operation")
-    void givenUserObject_whenDelete_thenDeleteEmployee(){
+    void givenUserObject_whenDelete_thenDeleteUser(){
         User user = User.builder()
                 .firstName("John")
                 .lastName("Doe")
