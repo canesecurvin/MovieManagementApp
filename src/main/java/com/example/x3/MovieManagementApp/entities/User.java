@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -59,6 +60,11 @@ public class User implements Serializable {
     @JsonManagedReference
     @ToString.Exclude
     private Set<Movies> movieFavorites = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<Favorites> favorites;
 
 //    @ManyToOne  //Commented totally for now but we might be will need it for future expansion
 //    @JsonManagedReference

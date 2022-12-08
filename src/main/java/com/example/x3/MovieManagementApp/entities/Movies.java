@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Movies {
+public class Movies implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +62,14 @@ public class Movies {
     @JsonBackReference
     @ToString.Exclude
     private Set<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    @ToString.Exclude
+    private Set<Favorites> favorites;
+
+    public Movies(Movies movies) {
+    }
 
     public void addGenre(Genres genre) {
         if (genres == null) {

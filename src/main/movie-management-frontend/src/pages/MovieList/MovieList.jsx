@@ -34,7 +34,7 @@ function MovieListJsx(){
         }
         getMovies();
         getGenres();
-    }, [])
+    }, [moviesList.movies])
     const renderMoviesByGenre = (genreName) => {
         setLoading(true);
         if (genreName === ""){
