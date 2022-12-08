@@ -53,6 +53,11 @@ h1 {
     margin-left: 2.5%;
 }
 
+.rating-form-field {
+    text-align: left;
+    width: 85%;
+}
+
 .favorite {
     display: flex;
     flex-direction: row;
