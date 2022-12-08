@@ -3,6 +3,8 @@ package com.example.x3.MovieManagementApp.repositories;
 import com.example.x3.MovieManagementApp.entities.Genres;
 import com.example.x3.MovieManagementApp.entities.Movies;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -44,17 +46,18 @@ class MovieRepositoryTests {
 
         movieOne.addGenre(tempGenre);
 
-        movieRepository.save(movieOne);
+        Movies tempMovie = movieRepository.save(movieOne);
 
-        assertThat(movieOne.getId()).isEqualTo(1);
+        assertThat(tempMovie.getId()).isEqualTo(1);
     }
 
     @Test
     @Order(2)
     void findByIdTest() {
-        Movies tempMovie = movieRepository.findById(1L).get();
+        Optional<Movies> tempMovie = movieRepository.findById(1L);
 
-        assertThat(tempMovie.getId()).isEqualTo(1L);
+        assertTrue(tempMovie.isPresent());
+        assertThat(tempMovie.get().getId()).isEqualTo(1L);
     }
 
     @Test
