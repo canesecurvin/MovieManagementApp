@@ -99,3 +99,7 @@
     animation-iteration-count:  infinite;
     animation-timing-function: linear; 
 }
+
+.remove-button {
+    margin-right: 1.5%;
+}

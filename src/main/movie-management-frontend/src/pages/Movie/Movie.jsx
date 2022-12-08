@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import CommentLogJsx from "./CommentLog/CommentLog.jsx";
 import MovieService from "../../services/MovieService.js";
 import AuthService from "../../services/AuthService";
+import FavoritesService from "../../services/FavoritesService.js";
 import MovieRatingsService from "../../services/MovieRatingsService.js";
 import RatingModalJsx from "./RatingModal.jsx";
 import RatingStarsJsx from '../../components/RatingStars.jsx';
@@ -47,10 +48,18 @@ function MovieJsx(props){
         }catch(e){console.log(e)}
         try {
             MovieRatingsService.getMovieRatingByUserAndMovie(currentUser.id, props.id).then(res => {
-                setLoading(false);
-                setRating(res.data.rating)
+                FavoritesService.getFavoriteByUserIdAndMovieId(currentUser.id, Number(props.id)).then(res => {
+                    setLoading(false);
+                    setRating(res.data.rating)
+                    setFavorited(res.data);
+                }).catch(error => {console.log(error);})
             }).catch(err => {
                 console.log(err);
+            })
+        }catch(e){console.log(e)}
+        try {
+            FavoritesService.getFavoriteByUserIdAndMovieId(currentUser.id, Number(props.id)).then(res => {
+                setFavorited(res.data);
             })
         }catch(e){console.log(e)}
     },[])
@@ -83,6 +92,18 @@ function MovieJsx(props){
             )
         }else return (<></>)
     }
+    function addToFavorites(movieId){
+        FavoritesService.addUserFavorites(currentUser.id, movieId).then(res=>{
+            console.log(res.data);
+            setFavorited(true);
+        })
+    }
+    function removeFromFavorites(movieId){
+        FavoritesService.deleteFavoriteByMovieIdAndUserId(movieId, currentUser.id).then(res=> {
+            console.log(res);
+            setFavorited(false);
+        })
+    }
     return (
         <>
             <h1><b>{values.movie.movieName}</b></h1>
@@ -100,7 +121,7 @@ function MovieJsx(props){
                     ):(<></>)}
                     <div className="favorite">
                         <div className='thumbs-up'>
-                            {favorited?(<button type="button" className="like" onClick={()=>{setFavorited(false)}}><HiHandThumbUp className="like-icon"/></button>):(<button type="button" className="like" onClick={()=>{setFavorited(true)}}><HiOutlineHandThumbUp className="like-icon"/></button>)}
+                            {favorited?(<button type="button" className="like" onClick={()=>{removeFromFavorites(props.id)}}><HiHandThumbUp className="like-icon"/></button>):(<button type="button" className="like" onClick={()=>{addToFavorites(props.id)}}><HiOutlineHandThumbUp className="like-icon"/></button>)}
                         </div>
                     </div>
                     {!rating ? (<Button variant="primary" id="rating-button" onClick={handleShow}>Rate</Button>):(<></>)}
