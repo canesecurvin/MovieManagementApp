@@ -37,8 +37,8 @@ function MovieListJsx(){
     }, [moviesList.movies])
     const renderMoviesByGenre = (genreName) => {
         setLoading(true);
-        if (genreName === ""){
-            MovieService.getAllMovies().then(res => {
+        const getMovies = () => {
+            MovieService.getAllMovies(page, size, sortedBy).then(res => {
                 setLoading(false);
                 setMoviesList(()=> ({
                     movies: [...res.data]
@@ -49,14 +49,23 @@ function MovieListJsx(){
                     setGenreSaved(false);
                 }, "1500")
             }).catch(error => {
-                console.log(error);
-            });
+                console.log("error",error);
+            }); 
+        }
+        if (genreName === ""){
+            moviesList.length = 0;
+            console.log(moviesList);
+            page = 0;
+            getMovies();
+            setSelectedGenre("");
         } 
         MovieService.getAllMoviesByGenre(genreName).then(res => {
             setLoading(false);
-            setMoviesList(()=> ({
-                movies: [...res.data]
-            }));
+            moviesList.length = 0;
+            res.data.forEach(g => {
+                moviesList.push(g);
+            })
+            // setMoviesList([...res.data]);
             setSelectedGenre(genreName);
             setGenreSaved(true);
             setTimeout(() => {
