@@ -3,6 +3,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab'
 import RecentActivityJsx from './Tabs/RecentActivity';
 import SettingsJsx from './Tabs/Settings';
+import UserMovieFavoritesJsx from './Tabs/UserMovieFavorites';
 import './Profile.css';
 
 function ProfileJsx(props) {
@@ -14,6 +15,9 @@ function ProfileJsx(props) {
         className="mb-3 tab-nav">
             <Tab eventKey="recent-activity" title="Recent Activity">
                 <RecentActivityJsx />
+            </Tab>
+            <Tab eventKey="movie-favorites" title="Favorites">
+                <UserMovieFavoritesJsx />
             </Tab>
             <Tab eventKey="settings" title="Settings">
                 <SettingsJsx updateNavigate={updateNavigate}/>

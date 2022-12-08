@@ -57,3 +57,27 @@ h1 {
     text-align: left;
     width: 85%;
 }
+
+.favorite {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+}
+
+.like {
+    background: none;
+    border:none;
+    color: #198754;
+}
+
+.like:hover {
+    background: none;
+    border:none;
+    color: #198754;
+}
+
+.like-icon {
+    width: 1.5em;
+    height: 1.5em;
+}
