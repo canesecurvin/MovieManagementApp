@@ -32,6 +32,9 @@ function MovieJsx(props){
           }, "3000")
         setShow(false)
     };
+    const handleCancel = () => {
+        setShow(false);
+    }
     const handleShow = () => setShow(true);
     useEffect(()=> {
         let img = document.getElementById(`poster`);
@@ -124,7 +127,7 @@ function MovieJsx(props){
                     </div>
                     {!rating ? (<Button variant="primary" id="rating-button" onClick={handleShow}>Rate</Button>):(<></>)}
                     {ratingSaved ? (<div className="success-message"><p>Rating Saved</p></div>) : (<></>)}
-                    <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>
+                    <RatingModalJsx movieId={props.id} userRating={rating} show={show} handleClose={handleClose} handleCancel={handleCancel} setNewRating={setNewRating} setNewRatingSaved={setNewRatingSaved}/>
                 </div>)}
             </div>
             <h3>Comments</h3>

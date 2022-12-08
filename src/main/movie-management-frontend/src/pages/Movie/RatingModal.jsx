@@ -7,7 +7,7 @@ import AuthService from '../../services/AuthService';
 
 function RatingModalJsx(props){
     const currentUser = AuthService.getCurrentUser();
-    const {show, handleClose, movieId, setNewRating, setNewRatingSaved} = props;
+    const {show, handleClose, handleCancel, movieId, setNewRating, setNewRatingSaved} = props;
     const [rating, setRating] = useState({
         rating: 0,
         review: ''
@@ -47,7 +47,7 @@ function RatingModalJsx(props){
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
-                                <option value="">3</option>
+                                <option value="5">5</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group className="mb-3 rating-form-field" controlId="review" onChange={handleFieldChange}>
@@ -58,8 +58,8 @@ function RatingModalJsx(props){
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
+                    <Button variant="secondary" onClick={handleCancel}>
+                        Cancel
                     </Button>
                 </Modal.Footer>
             </Modal>
